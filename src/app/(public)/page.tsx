@@ -28,11 +28,7 @@ export default async function HomePage() {
       <HeroSlider slides={slides} />
 
       <Container className="mt-10 space-y-20">
-        {liturgicalDay && (
-          <div className="mx-auto max-w-md">
-            <LiturgicalTodayCard day={liturgicalDay} />
-          </div>
-        )}
+        {liturgicalDay && <LiturgicalTodayCard day={liturgicalDay} />}
 
         <MassScheduleSection schedules={schedules} />
         <AnnouncementSection announcements={announcements} />
