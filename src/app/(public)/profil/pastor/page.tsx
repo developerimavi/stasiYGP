@@ -27,17 +27,17 @@ function PastorCard({ pastor }: { pastor: Pastor }) {
     <Card className="p-5">
       <div className="flex gap-4">
         {pastor.photo_url ? (
-          <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-parish-100">
+          <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl border border-parish-100">
             <Image
               src={pastor.photo_url}
               alt={pastor.name}
               fill
               className="object-cover"
-              sizes="64px"
+              sizes="96px"
             />
           </div>
         ) : (
-          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-parish-50 font-display text-lg text-parish-500">
+          <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-xl bg-parish-50 font-display text-2xl text-parish-500">
             {initials}
           </div>
         )}
