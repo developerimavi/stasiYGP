@@ -186,7 +186,8 @@ create table categorical_groups (
 create table territories (
   id uuid primary key default gen_random_uuid(),
   name text not null,
-  chairman text not null
+  chairman text not null,
+  photo_url text
 );
 
 create table neighborhoods (

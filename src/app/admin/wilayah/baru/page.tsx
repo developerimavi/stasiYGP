@@ -18,6 +18,7 @@ export default async function NewTerritoryPage() {
           cancelHref="/admin/wilayah"
           action={action}
           fields={[
+            { type: "image", name: "photo_url", label: "Foto Wilayah" },
             { type: "text", name: "name", label: "Nama Wilayah", required: true },
             { type: "text", name: "chairman", label: "Ketua Wilayah", required: true },
           ]}

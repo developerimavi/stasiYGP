@@ -164,6 +164,7 @@ export interface Territory {
   id: string;
   name: string;
   chairman: string;
+  photo_url: string | null;
 }
 
 export interface Neighborhood {

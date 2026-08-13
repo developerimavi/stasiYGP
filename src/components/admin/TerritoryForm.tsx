@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/Card";
 import { Field } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { ImageUpload } from "@/components/ui/ImageUpload";
 import type { Neighborhood, Territory } from "@/types/database";
 
 export function TerritoryForm({
@@ -22,6 +23,7 @@ export function TerritoryForm({
   return (
     <form action={action} className="space-y-6">
       <Card className="space-y-4 p-6">
+        <ImageUpload name="photo_url" label="Foto Wilayah" defaultValue={territory?.photo_url} />
         <Field label="Nama Wilayah" htmlFor="name">
           <Input id="name" name="name" required defaultValue={territory?.name} />
         </Field>
