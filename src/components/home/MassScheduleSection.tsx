@@ -4,30 +4,44 @@ import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import type { MassSchedule } from "@/types/database";
 
-function ScheduleCard({ s }: { s: MassSchedule }) {
+function ScheduleRow({ s }: { s: MassSchedule }) {
   return (
-    <Card className="flex h-full flex-col p-5">
-      <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gold-600">
-        <MapPin size={13} />
-        {s.chapel}
+    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-parish-100 py-3 first:border-0 first:pt-0">
+      <div className="flex items-center gap-2">
+        <Clock size={16} className="shrink-0 text-parish-500" />
+        <span className="font-display text-lg text-parish-900">{s.time}</span>
+        <span className="text-sm text-parish-700/70">{s.day_label}</span>
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="text-sm text-parish-700/70">{s.category}</span>
+        {s.stream_url && (
+          <a
+            href={s.stream_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-parish-600 hover:text-parish-700"
+          >
+            <Radio size={14} />
+            Siaran Langsung
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ChapelCard({ chapel, schedules }: { chapel: string; schedules: MassSchedule[] }) {
+  return (
+    <Card className="p-5">
+      <p className="flex items-center gap-1.5 font-display text-lg text-parish-900">
+        <MapPin size={16} className="text-parish-500" />
+        {chapel}
       </p>
-      <p className="mt-1 flex items-center gap-1.5 font-display text-2xl text-parish-900">
-        <Clock size={18} className="text-parish-500" />
-        {s.time}
-      </p>
-      <p className="mt-2 text-sm font-medium text-parish-800">{s.category}</p>
-      <p className="mt-1 text-sm text-parish-700/70">{s.day_label}</p>
-      {s.stream_url && (
-        <a
-          href={s.stream_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-parish-600 hover:text-parish-700"
-        >
-          <Radio size={14} />
-          Siaran Langsung
-        </a>
-      )}
+      <div className="mt-2">
+        {schedules.map((s) => (
+          <ScheduleRow key={s.id} s={s} />
+        ))}
+      </div>
     </Card>
   );
 }
@@ -53,13 +67,11 @@ export function MassScheduleSection({ schedules }: { schedules: MassSchedule[] }
         style={{ gridTemplateColumns: `repeat(${Math.max(chapels.length, 1)}, minmax(0, 1fr))` }}
       >
         {chapels.map((chapel) => (
-          <div key={chapel} className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2">
-            {schedules
-              .filter((s) => s.chapel === chapel)
-              .map((s) => (
-                <ScheduleCard key={s.id} s={s} />
-              ))}
-          </div>
+          <ChapelCard
+            key={chapel}
+            chapel={chapel}
+            schedules={schedules.filter((s) => s.chapel === chapel)}
+          />
         ))}
       </div>
     </section>
