@@ -7,7 +7,7 @@ export default async function NewTerritoryPage() {
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData);
-    await createRow("territories", values, "/admin/wilayah");
+    await createRow("territories", values, "/admin/wilayah", ["/wilayah"]);
   }
 
   return (

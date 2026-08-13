@@ -17,7 +17,7 @@ export default async function AdminWilayahPage({
 
   async function handleDelete(id: string) {
     "use server";
-    await deleteRow("territories", id, "/admin/wilayah");
+    await deleteRow("territories", id, "/admin/wilayah", ["/wilayah"]);
   }
 
   return (

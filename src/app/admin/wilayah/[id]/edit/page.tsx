@@ -38,7 +38,8 @@ export default async function EditTerritoryPage({
       id,
       values,
       { table: "neighborhoods", parentColumn: "territory_id", rows: neighborhoodRows },
-      "/admin/wilayah"
+      "/admin/wilayah",
+      ["/wilayah"]
     );
   }
 
