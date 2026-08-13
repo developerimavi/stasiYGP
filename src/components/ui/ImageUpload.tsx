@@ -30,7 +30,7 @@ export function ImageUpload({
     const { error: uploadError } = await supabase.storage.from("media").upload(path, file);
 
     if (uploadError) {
-      setError("Gagal mengunggah gambar.");
+      setError(`Gagal mengunggah gambar: ${uploadError.message}`);
       setUploading(false);
       return;
     }
