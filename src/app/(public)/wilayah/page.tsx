@@ -1,8 +1,8 @@
-import Image from "next/image";
 import { Users } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ImagePreviewThumbnail } from "@/components/ui/ImagePreviewThumbnail";
 import { getTerritories } from "@/lib/queries";
 import type { Metadata } from "next";
 
@@ -28,15 +28,11 @@ export default async function WilayahPage() {
           <Card key={t.id} className="p-6">
             <div className="flex items-center gap-4">
               {t.photo_url ? (
-                <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-parish-100">
-                  <Image
-                    src={t.photo_url}
-                    alt={t.name}
-                    fill
-                    className="object-cover"
-                    sizes="64px"
-                  />
-                </div>
+                <ImagePreviewThumbnail
+                  src={t.photo_url}
+                  alt={t.name}
+                  className="h-16 w-16"
+                />
               ) : (
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-parish-50 font-display text-lg text-parish-500">
                   {t.name
