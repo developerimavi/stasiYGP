@@ -7,7 +7,7 @@ export default async function NewHistoryPage() {
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData, { numberFields: ["year", "sort_order"] });
-    await createRow("parish_history", values, "/admin/sejarah");
+    await createRow("parish_history", values, "/admin/sejarah", ["/profil/sejarah"]);
   }
 
   return (

@@ -7,7 +7,7 @@ export default async function NewSacramentFormPage() {
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData, { numberFields: ["sort_order"] });
-    await createRow("sacrament_forms", values, "/admin/formulir");
+    await createRow("sacrament_forms", values, "/admin/formulir", ["/formulir"]);
   }
 
   return (

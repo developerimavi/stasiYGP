@@ -15,7 +15,10 @@ export default async function NewLiturgicalDayPage() {
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData);
-    await createRow("liturgical_calendar", values, "/admin/kalender-liturgi");
+    await createRow("liturgical_calendar", values, "/admin/kalender-liturgi", [
+      "/kalender-liturgi",
+      "/jadwal-misa",
+    ]);
   }
 
   return (

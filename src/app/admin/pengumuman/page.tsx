@@ -20,7 +20,10 @@ export default async function AdminPengumumanPage({
 
   async function handleDelete(id: string) {
     "use server";
-    await deleteRow("announcements", id, "/admin/pengumuman");
+    await deleteRow("announcements", id, "/admin/pengumuman", [
+      "/pengumuman",
+      ["/pengumuman/[slug]", "page"],
+    ]);
   }
 
   return (

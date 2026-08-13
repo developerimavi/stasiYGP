@@ -32,7 +32,8 @@ export default async function EditAnnouncementPage({
       id,
       values,
       { table: "announcement_images", parentColumn: "announcement_id", rows: imageRows },
-      "/admin/pengumuman"
+      "/admin/pengumuman",
+      ["/pengumuman", ["/pengumuman/[slug]", "page"]]
     );
   }
 

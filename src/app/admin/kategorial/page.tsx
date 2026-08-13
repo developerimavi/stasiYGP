@@ -13,7 +13,7 @@ export default async function AdminKategorialPage({
 
   async function handleDelete(id: string) {
     "use server";
-    await deleteRow("categorical_groups", id, "/admin/kategorial");
+    await deleteRow("categorical_groups", id, "/admin/kategorial", ["/kategorial"]);
   }
 
   return (

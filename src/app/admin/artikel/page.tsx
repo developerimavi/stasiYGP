@@ -20,7 +20,7 @@ export default async function AdminArtikelPage({
 
   async function handleDelete(id: string) {
     "use server";
-    await deleteRow("articles", id, "/admin/artikel");
+    await deleteRow("articles", id, "/admin/artikel", ["/artikel", ["/artikel/[slug]", "page"]]);
   }
 
   return (

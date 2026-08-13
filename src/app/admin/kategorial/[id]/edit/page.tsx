@@ -18,7 +18,7 @@ export default async function EditCategoricalGroupPage({
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData, { numberFields: ["sort_order"] });
-    await updateRow("categorical_groups", id, values, "/admin/kategorial");
+    await updateRow("categorical_groups", id, values, "/admin/kategorial", ["/kategorial"]);
   }
 
   return (

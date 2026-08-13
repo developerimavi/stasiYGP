@@ -14,7 +14,7 @@ export default async function AdminFormulirPage({
 
   async function handleDelete(id: string) {
     "use server";
-    await deleteRow("sacrament_forms", id, "/admin/formulir");
+    await deleteRow("sacrament_forms", id, "/admin/formulir", ["/formulir"]);
   }
 
   return (

@@ -18,7 +18,7 @@ export default async function EditSacramentFormPage({
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData, { numberFields: ["sort_order"] });
-    await updateRow("sacrament_forms", id, values, "/admin/formulir");
+    await updateRow("sacrament_forms", id, values, "/admin/formulir", ["/formulir"]);
   }
 
   return (

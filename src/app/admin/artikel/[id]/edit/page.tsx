@@ -36,7 +36,8 @@ export default async function EditArticlePage({
       id,
       values,
       { table: "article_images", parentColumn: "article_id", rows: imageRows },
-      "/admin/artikel"
+      "/admin/artikel",
+      ["/artikel", ["/artikel/[slug]", "page"]]
     );
   }
 

@@ -24,7 +24,7 @@ export default async function EditOrganizationMemberPage({
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData, { numberFields: ["sort_order"] });
-    await updateRow("organization_members", id, values, "/admin/organisasi");
+    await updateRow("organization_members", id, values, "/admin/organisasi", ["/organisasi"]);
   }
 
   return (

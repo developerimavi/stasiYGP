@@ -12,7 +12,7 @@ export default async function AdminGaleriPage({
 
   async function handleDelete(id: string) {
     "use server";
-    await deleteRow("galleries", id, "/admin/galeri");
+    await deleteRow("galleries", id, "/admin/galeri", ["/galeri"]);
   }
 
   return (

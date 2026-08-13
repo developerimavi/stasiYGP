@@ -18,7 +18,7 @@ export default async function EditMassSchedulePage({
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData, { numberFields: ["sort_order"] });
-    await updateRow("mass_schedules", id, values, "/admin/jadwal-misa");
+    await updateRow("mass_schedules", id, values, "/admin/jadwal-misa", ["/jadwal-misa"]);
   }
 
   return (

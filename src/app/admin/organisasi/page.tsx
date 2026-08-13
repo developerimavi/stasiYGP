@@ -20,7 +20,7 @@ export default async function AdminOrganisasiPage({
 
   async function handleDelete(id: string) {
     "use server";
-    await deleteRow("organization_members", id, "/admin/organisasi");
+    await deleteRow("organization_members", id, "/admin/organisasi", ["/organisasi"]);
   }
 
   return (

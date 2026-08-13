@@ -7,7 +7,7 @@ export default async function NewPastorPage() {
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData, { numberFields: ["serve_from", "serve_to", "sort_order"] });
-    await createRow("pastors", values, "/admin/pastor");
+    await createRow("pastors", values, "/admin/pastor", ["/profil/pastor"]);
   }
 
   return (

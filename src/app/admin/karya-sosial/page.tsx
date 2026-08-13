@@ -13,7 +13,7 @@ export default async function AdminKaryaSosialPage({
 
   async function handleDelete(id: string) {
     "use server";
-    await deleteRow("social_ministries", id, "/admin/karya-sosial");
+    await deleteRow("social_ministries", id, "/admin/karya-sosial", ["/karya-sosial"]);
   }
 
   return (

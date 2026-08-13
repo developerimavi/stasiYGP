@@ -18,7 +18,8 @@ export default async function NewGalleryPage() {
       "galleries",
       values,
       { table: "gallery_images", parentColumn: "gallery_id", rows: imageRows },
-      "/admin/galeri"
+      "/admin/galeri",
+      ["/galeri"]
     );
   }
 

@@ -7,7 +7,7 @@ export default async function NewCategoricalGroupPage() {
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData, { numberFields: ["sort_order"] });
-    await createRow("categorical_groups", values, "/admin/kategorial");
+    await createRow("categorical_groups", values, "/admin/kategorial", ["/kategorial"]);
   }
 
   return (

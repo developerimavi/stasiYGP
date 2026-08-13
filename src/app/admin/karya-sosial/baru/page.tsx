@@ -14,7 +14,7 @@ export default async function NewSocialMinistryPage() {
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData, { numberFields: ["sort_order"] });
-    await createRow("social_ministries", values, "/admin/karya-sosial");
+    await createRow("social_ministries", values, "/admin/karya-sosial", ["/karya-sosial"]);
   }
 
   return (

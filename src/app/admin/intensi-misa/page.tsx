@@ -22,6 +22,7 @@ export default async function AdminIntensiMisaPage({
     const { error } = await supabase.from("mass_intentions_info").upsert({ id: 1, ...values });
     if (error) throw new Error(error.message);
     revalidatePath("/admin/intensi-misa");
+    revalidatePath("/intensi-misa");
     revalidatePath("/", "layout");
     redirect("/admin/intensi-misa?success=1");
   }

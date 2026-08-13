@@ -25,7 +25,7 @@ export default async function EditSocialMinistryPage({
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData, { numberFields: ["sort_order"] });
-    await updateRow("social_ministries", id, values, "/admin/karya-sosial");
+    await updateRow("social_ministries", id, values, "/admin/karya-sosial", ["/karya-sosial"]);
   }
 
   return (

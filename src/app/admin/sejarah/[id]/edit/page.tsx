@@ -18,7 +18,7 @@ export default async function EditHistoryPage({
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData, { numberFields: ["year", "sort_order"] });
-    await updateRow("parish_history", id, values, "/admin/sejarah");
+    await updateRow("parish_history", id, values, "/admin/sejarah", ["/profil/sejarah"]);
   }
 
   return (

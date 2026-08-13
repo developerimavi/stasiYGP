@@ -7,7 +7,7 @@ export default async function NewMassSchedulePage() {
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData, { numberFields: ["sort_order"] });
-    await createRow("mass_schedules", values, "/admin/jadwal-misa");
+    await createRow("mass_schedules", values, "/admin/jadwal-misa", ["/jadwal-misa"]);
   }
 
   return (

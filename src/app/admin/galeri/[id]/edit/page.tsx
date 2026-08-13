@@ -38,7 +38,8 @@ export default async function EditGalleryPage({
       id,
       values,
       { table: "gallery_images", parentColumn: "gallery_id", rows: imageRows },
-      "/admin/galeri"
+      "/admin/galeri",
+      ["/galeri"]
     );
   }
 

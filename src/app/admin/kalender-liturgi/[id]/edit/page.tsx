@@ -26,7 +26,10 @@ export default async function EditLiturgicalDayPage({
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData);
-    await updateRow("liturgical_calendar", id, values, "/admin/kalender-liturgi");
+    await updateRow("liturgical_calendar", id, values, "/admin/kalender-liturgi", [
+      "/kalender-liturgi",
+      "/jadwal-misa",
+    ]);
   }
 
   return (

@@ -13,7 +13,7 @@ export default async function NewOrganizationMemberPage() {
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData, { numberFields: ["sort_order"] });
-    await createRow("organization_members", values, "/admin/organisasi");
+    await createRow("organization_members", values, "/admin/organisasi", ["/organisasi"]);
   }
 
   return (

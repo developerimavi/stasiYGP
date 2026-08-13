@@ -4,17 +4,27 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createAuthClient } from "@/lib/supabase/server-auth";
 
+/** A path to revalidate, or a [path, type] pair for dynamic route segments (e.g. ["/artikel/[slug]", "page"]). */
+type RevalidateTarget = string | [string, "page" | "layout"];
+
+function revalidateExtraPaths(paths: RevalidateTarget[]) {
+  for (const p of paths) {
+    if (Array.isArray(p)) revalidatePath(p[0], p[1]);
+    else revalidatePath(p);
+  }
+}
+
 export async function createRow(
   table: string,
   values: Record<string, unknown>,
   redirectPath: string,
-  extraPaths: string[] = []
+  extraPaths: RevalidateTarget[] = []
 ) {
   const supabase = await createAuthClient();
   const { error } = await supabase.from(table).insert(values);
   if (error) throw new Error(error.message);
   revalidatePath(redirectPath);
-  for (const p of extraPaths) revalidatePath(p);
+  revalidateExtraPaths(extraPaths);
   revalidatePath("/", "layout");
   redirect(`${redirectPath}?success=1`);
 }
@@ -24,13 +34,13 @@ export async function updateRow(
   id: string | number,
   values: Record<string, unknown>,
   redirectPath: string,
-  extraPaths: string[] = []
+  extraPaths: RevalidateTarget[] = []
 ) {
   const supabase = await createAuthClient();
   const { error } = await supabase.from(table).update(values).eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath(redirectPath);
-  for (const p of extraPaths) revalidatePath(p);
+  revalidateExtraPaths(extraPaths);
   revalidatePath("/", "layout");
   redirect(`${redirectPath}?success=1`);
 }
@@ -39,14 +49,14 @@ export async function reorderRows(
   table: string,
   orderedIds: string[],
   redirectPath: string,
-  extraPaths: string[] = []
+  extraPaths: RevalidateTarget[] = []
 ) {
   const supabase = await createAuthClient();
   await Promise.all(
     orderedIds.map((id, i) => supabase.from(table).update({ sort_order: i }).eq("id", id))
   );
   revalidatePath(redirectPath);
-  for (const p of extraPaths) revalidatePath(p);
+  revalidateExtraPaths(extraPaths);
   revalidatePath("/", "layout");
 }
 
@@ -54,13 +64,13 @@ export async function deleteRow(
   table: string,
   id: string | number,
   redirectPath: string,
-  extraPaths: string[] = []
+  extraPaths: RevalidateTarget[] = []
 ) {
   const supabase = await createAuthClient();
   const { error } = await supabase.from(table).delete().eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath(redirectPath);
-  for (const p of extraPaths) revalidatePath(p);
+  revalidateExtraPaths(extraPaths);
   revalidatePath("/", "layout");
 }
 
@@ -87,7 +97,7 @@ export async function createRowWithChildren(
   values: Record<string, unknown>,
   children: { table: string; parentColumn: string; rows: Record<string, unknown>[] } | null,
   redirectPath: string,
-  extraPaths: string[] = []
+  extraPaths: RevalidateTarget[] = []
 ) {
   const supabase = await createAuthClient();
   const { data: inserted, error } = await supabase
@@ -103,7 +113,7 @@ export async function createRowWithChildren(
   }
 
   revalidatePath(redirectPath);
-  for (const p of extraPaths) revalidatePath(p);
+  revalidateExtraPaths(extraPaths);
   revalidatePath("/", "layout");
   redirect(`${redirectPath}?success=1`);
 }
@@ -115,7 +125,7 @@ export async function updateRowWithChildren(
   values: Record<string, unknown>,
   children: { table: string; parentColumn: string; rows: Record<string, unknown>[] } | null,
   redirectPath: string,
-  extraPaths: string[] = []
+  extraPaths: RevalidateTarget[] = []
 ) {
   const supabase = await createAuthClient();
   const { error } = await supabase.from(table).update(values).eq("id", id);
@@ -126,7 +136,7 @@ export async function updateRowWithChildren(
   }
 
   revalidatePath(redirectPath);
-  for (const p of extraPaths) revalidatePath(p);
+  revalidateExtraPaths(extraPaths);
   revalidatePath("/", "layout");
   redirect(`${redirectPath}?success=1`);
 }

@@ -17,12 +17,12 @@ export default async function AdminSejarahPage({
 
   async function handleDelete(id: string) {
     "use server";
-    await deleteRow("parish_history", id, "/admin/sejarah");
+    await deleteRow("parish_history", id, "/admin/sejarah", ["/profil/sejarah"]);
   }
 
   async function handleReorder(orderedIds: string[]) {
     "use server";
-    await reorderRows("parish_history", orderedIds, "/admin/sejarah");
+    await reorderRows("parish_history", orderedIds, "/admin/sejarah", ["/profil/sejarah"]);
   }
 
   return (

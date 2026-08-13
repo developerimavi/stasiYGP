@@ -13,7 +13,7 @@ export default async function AdminJadwalMisaPage({
 
   async function handleDelete(id: string) {
     "use server";
-    await deleteRow("mass_schedules", id, "/admin/jadwal-misa");
+    await deleteRow("mass_schedules", id, "/admin/jadwal-misa", ["/jadwal-misa"]);
   }
 
   return (

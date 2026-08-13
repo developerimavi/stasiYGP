@@ -15,7 +15,10 @@ export default async function AdminKalenderLiturgiPage({
 
   async function handleDelete(id: string) {
     "use server";
-    await deleteRow("liturgical_calendar", id, "/admin/kalender-liturgi");
+    await deleteRow("liturgical_calendar", id, "/admin/kalender-liturgi", [
+      "/kalender-liturgi",
+      "/jadwal-misa",
+    ]);
   }
 
   return (

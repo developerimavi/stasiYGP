@@ -18,7 +18,7 @@ export default async function EditPastorPage({
   async function action(formData: FormData) {
     "use server";
     const values = formToValues(formData, { numberFields: ["serve_from", "serve_to", "sort_order"] });
-    await updateRow("pastors", id, values, "/admin/pastor");
+    await updateRow("pastors", id, values, "/admin/pastor", ["/profil/pastor"]);
   }
 
   return (

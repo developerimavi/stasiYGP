@@ -22,6 +22,7 @@ export default async function AdminProfilPage({
     const { error } = await supabase.from("parish_profile").upsert({ id: 1, ...values });
     if (error) throw new Error(error.message);
     revalidatePath("/admin/profil");
+    revalidatePath("/profil");
     revalidatePath("/", "layout");
     redirect("/admin/profil?success=1");
   }

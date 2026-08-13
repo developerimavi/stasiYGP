@@ -14,7 +14,7 @@ export default async function AdminPastorPage({
 
   async function handleDelete(id: string) {
     "use server";
-    await deleteRow("pastors", id, "/admin/pastor");
+    await deleteRow("pastors", id, "/admin/pastor", ["/profil/pastor"]);
   }
 
   return (
