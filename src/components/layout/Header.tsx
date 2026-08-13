@@ -82,10 +82,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-parish-100/80 bg-cream-50/90 backdrop-blur">
       <Container className="flex h-20 items-center justify-between gap-4">
-        <Link
-          href="/"
-          className="flex shrink-0 items-center gap-2.5 font-display text-lg text-parish-900"
-        >
+        <Link href="/" className="flex shrink-0 items-center gap-2.5 text-parish-900">
           <Image
             src="/logo.png"
             alt="Logo Paroki Yohanes Gabriel Perboyre"
@@ -93,7 +90,14 @@ export function Header() {
             height={56}
             className="h-14 w-14 object-contain"
           />
-          <span className="whitespace-nowrap">Paroki YGP</span>
+          <span className="flex flex-col leading-tight">
+            <span className="text-[11px] font-semibold uppercase tracking-wide text-gold-600">
+              Gereja Katolik
+            </span>
+            <span className="font-display text-base whitespace-nowrap sm:text-lg">
+              Paroki Yohanes Gabriel Perboyre
+            </span>
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">
