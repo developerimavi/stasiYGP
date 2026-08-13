@@ -9,8 +9,8 @@ export function LatestArticlesSection({ articles }: { articles: Article[] }) {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <SectionHeading
           eyebrow="Kabar Paroki"
-          title="Artikel & Pengumuman Terbaru"
-          description="Ikuti perkembangan kegiatan dan pengumuman terkini dari paroki kita."
+          title="Artikel & Berita Terbaru"
+          description="Ikuti perkembangan kegiatan dan berita terkini dari paroki kita."
         />
         <Button href="/artikel" variant="outline" size="sm">
           Lihat Semua
