@@ -81,13 +81,17 @@ body {
 /* Public rendering of rich text (RichTextContent): Quill's base .ql-editor
    sets overflow-wrap: break-word, which breaks long words mid-syllable even
    when a normal wrap at the previous space would fit. Only break words that
-   are actually too long for the container. */
+   are actually too long for the container.
+   !important is required here because quill.snow.css is imported at the
+   component level (RichTextContent/RichTextEditor), so bundlers don't
+   guarantee it loads before this global stylesheet — without !important
+   the cascade order can make Quill's rule win regardless of specificity. */
 .ql-snow .ql-editor {
-  overflow-wrap: normal;
-  word-break: normal;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
 }
 
 .ql-snow .ql-editor p,
 .ql-snow .ql-editor li {
-  overflow-wrap: anywhere;
+  overflow-wrap: anywhere !important;
 }
