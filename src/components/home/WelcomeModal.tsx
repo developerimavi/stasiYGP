@@ -36,7 +36,7 @@ export function WelcomeModal({ slides }: { slides: WelcomeSlide[] }) {
         className="flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-parish-100 px-8 py-6">
+        <div className="flex items-start justify-between gap-4 border-b border-parish-100 px-8 py-5">
           {slides.length > 1 ? (
             <div className="flex flex-wrap gap-1">
               {slides.map((s) => (
@@ -55,16 +55,11 @@ export function WelcomeModal({ slides }: { slides: WelcomeSlide[] }) {
               ))}
             </div>
           ) : (
-            <div>
-              <div className="mb-3 flex items-center gap-3">
-                <span className="h-px w-8 bg-gold-600" />
-                <span className="text-[10px] uppercase tracking-[.3em] text-parish-700/55">
-                  Selamat Datang
-                </span>
-              </div>
-              <h2 className="font-display text-2xl leading-snug text-parish-900">
-                {active.title}
-              </h2>
+            <div className="flex items-center gap-3">
+              <span className="h-px w-8 bg-gold-600" />
+              <span className="text-[10px] uppercase tracking-[.3em] text-parish-700/55">
+                Selamat Datang
+              </span>
             </div>
           )}
           <button
@@ -77,8 +72,10 @@ export function WelcomeModal({ slides }: { slides: WelcomeSlide[] }) {
           </button>
         </div>
 
+        {/* Photo on the left, with the title, name and greeting all running
+            down the right so the column beside the portrait isn't left empty. */}
         <div className="overflow-y-auto px-8 py-7">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-end">
+          <div className="flex flex-col gap-6 sm:flex-row">
             {active.photo_url ? (
               <div className="relative aspect-[3/4] w-full shrink-0 overflow-hidden border border-parish-100 sm:h-[336px] sm:w-[252px]">
                 <Image
@@ -103,17 +100,21 @@ export function WelcomeModal({ slides }: { slides: WelcomeSlide[] }) {
               )
             )}
 
-            {active.name && (
-              <div className="min-w-0 flex-1">
-                <p className="font-display text-2xl text-parish-900">{active.name}</p>
-              </div>
-            )}
+            <div className="min-w-0 flex-1">
+              <h2 className="font-display text-2xl leading-snug text-parish-900">
+                {active.title}
+              </h2>
+              {active.name && (
+                <p className="mt-2 text-sm uppercase tracking-[.16em] text-parish-700/60">
+                  {active.name}
+                </p>
+              )}
+              <RichTextContent
+                html={active.content}
+                className="mt-5 text-[15px] leading-[1.8] text-parish-800/90"
+              />
+            </div>
           </div>
-
-          <RichTextContent
-            html={active.content}
-            className="mt-6 text-[15px] leading-[1.8] text-parish-800/90"
-          />
         </div>
       </div>
     </div>
