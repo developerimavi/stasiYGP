@@ -15,12 +15,8 @@ export function RichTextContent({
   className?: string;
 }) {
   return (
-    <div className={cn("ql-snow", className)}>
-      <div
-        className="ql-editor"
-        style={{ padding: 0 }}
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
+    <div className={cn("rich-text-content ql-snow", className)}>
+      <div className="ql-editor" dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );
 }

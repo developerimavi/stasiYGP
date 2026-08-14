@@ -93,6 +93,57 @@ body {
   word-break: normal !important;
 }
 
+/* Reading rhythm for published rich text. Quill ships line-height 1.42 with
+   margin:0 on every block, which is fine inside the editor but far too tight
+   for body copy on the site — paragraphs run together with no breathing room.
+   Scoped to .rich-text-content so the admin editor keeps Quill's own spacing. */
+.rich-text-content .ql-editor {
+  font-size: 1rem;
+  line-height: 1.85 !important;
+  padding: 0 !important;
+}
+
+.rich-text-content .ql-editor p,
+.rich-text-content .ql-editor ol,
+.rich-text-content .ql-editor ul {
+  margin-bottom: 1.15em !important;
+}
+
+.rich-text-content .ql-editor p:last-child,
+.rich-text-content .ql-editor ol:last-child,
+.rich-text-content .ql-editor ul:last-child {
+  margin-bottom: 0 !important;
+}
+
+.rich-text-content .ql-editor li {
+  margin-bottom: 0.4em;
+}
+
+.rich-text-content .ql-editor h1,
+.rich-text-content .ql-editor h2,
+.rich-text-content .ql-editor h3 {
+  font-family: var(--font-display), Georgia, serif;
+  line-height: 1.25 !important;
+  margin-top: 1.6em !important;
+  margin-bottom: 0.55em !important;
+}
+
+.rich-text-content .ql-editor > :first-child {
+  margin-top: 0 !important;
+}
+
+.rich-text-content .ql-editor h1 {
+  font-size: 1.7em;
+}
+
+.rich-text-content .ql-editor h2 {
+  font-size: 1.4em;
+}
+
+.rich-text-content .ql-editor h3 {
+  font-size: 1.18em;
+}
+
 /* ─────────────────────────────────────────────────────────────
    Homepage redesign — motion. See DESIGN-SYSTEM.md §3.
    Durations are multiplied by --m so the tempo can be tuned globally.

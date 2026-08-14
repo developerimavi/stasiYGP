@@ -46,7 +46,7 @@ export default async function IntensiMisaPage() {
               <h2 className="font-display text-2xl text-parish-900">{title}</h2>
               <RichTextContent
                 html={html}
-                className="mt-3 text-sm leading-[1.8] text-parish-800/90"
+                className="mt-3 text-base text-parish-800/90"
               />
             </div>
           </RevealItem>

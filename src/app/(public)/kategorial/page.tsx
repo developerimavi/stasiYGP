@@ -26,7 +26,7 @@ export default async function KategorialPage() {
               <h3 className="font-display text-xl text-parish-900">{g.name}</h3>
               <RichTextContent
                 html={g.content}
-                className="mt-3 text-sm text-parish-800/90"
+                className="mt-3 text-base text-parish-800/90"
               />
               <div className="mt-4 space-y-1 border-t border-parish-100 pt-4 text-sm text-parish-700/80">
                 {g.schedule && <p>Jadwal: {g.schedule}</p>}

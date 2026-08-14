@@ -111,7 +111,7 @@ export function WelcomeModal({ slides }: { slides: WelcomeSlide[] }) {
               )}
               <RichTextContent
                 html={active.content}
-                className="mt-5 text-[15px] leading-[1.8] text-parish-800/90"
+                className="mt-5 text-base text-parish-800/90"
               />
             </div>
           </div>

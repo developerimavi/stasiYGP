@@ -32,7 +32,7 @@ export default async function SejarahPage() {
               </div>
               <RichTextContent
                 html={h.content}
-                className="text-sm leading-[1.8] text-parish-800/90"
+                className="text-base text-parish-800/90"
               />
             </div>
           </RevealItem>

@@ -35,13 +35,13 @@ export default async function KaryaSosialPage() {
               {m.description && (
                 <RichTextContent
                   html={m.description}
-                  className="mt-5 text-sm leading-[1.8] text-parish-800/90"
+                  className="mt-5 text-base text-parish-800/90"
                 />
               )}
               {m.activities && (
                 <RichTextContent
                   html={m.activities}
-                  className="mt-4 text-sm leading-[1.8] text-parish-700/70"
+                  className="mt-4 text-base text-parish-700/70"
                 />
               )}
             </RevealItem>

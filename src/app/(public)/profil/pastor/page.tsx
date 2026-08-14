@@ -52,7 +52,7 @@ function PastorEntry({ pastor }: { pastor: Pastor }) {
           {pastor.biography && (
             <RichTextContent
               html={pastor.biography}
-              className="mt-4 text-sm leading-[1.8] text-parish-800/90"
+              className="mt-4 text-base text-parish-800/90"
             />
           )}
         </div>
