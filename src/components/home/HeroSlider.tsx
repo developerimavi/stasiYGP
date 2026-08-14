@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import type { HeroSlide } from "@/types/database";
 
 export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
   const [active, setActive] = useState(0);
+  const photoRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
 
   const next = useCallback(() => {
     setActive((v) => (v + 1) % slides.length);
@@ -22,85 +23,186 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
     return () => clearInterval(id);
   }, [next, slides.length]);
 
+  // Damped parallax: the photo and copy trail the cursor and scroll rather
+  // than tracking them exactly. Desktop only. See DESIGN-SYSTEM.md §3.
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const p = { mx: 0, my: 0, tx: 0, ty: 0 };
+    let raf = 0;
+
+    const onMove = (e: MouseEvent) => {
+      if (window.innerWidth <= 900) return;
+      p.tx = (e.clientX / window.innerWidth - 0.5) * 28;
+      p.ty = (e.clientY / window.innerHeight - 0.5) * 18;
+    };
+
+    const loop = () => {
+      const y = window.scrollY || 0;
+      p.mx += (p.tx - p.mx) * 0.08;
+      p.my += (p.ty - p.my) * 0.08;
+
+      if (photoRef.current) {
+        photoRef.current.style.transform = `translate3d(${(-p.mx).toFixed(2)}px,${(
+          y * 0.3 -
+          p.my
+        ).toFixed(2)}px,0)`;
+      }
+      if (textRef.current) {
+        textRef.current.style.transform = `translate3d(${(p.mx * 0.35).toFixed(2)}px,${(
+          y * 0.14
+        ).toFixed(2)}px,0)`;
+        textRef.current.style.opacity = String(Math.max(0, 1 - y / 620));
+      }
+      raf = requestAnimationFrame(loop);
+    };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    raf = requestAnimationFrame(loop);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   if (slides.length === 0) return null;
 
+  const slide = slides[active];
+  // Break the headline into words so each line can rise out of its own mask.
+  const words = slide.title.split(" ");
+  const mid = Math.ceil(words.length / 2);
+  const lines = words.length > 3 ? [words.slice(0, mid).join(" "), words.slice(mid).join(" ")] : [slide.title];
+
   return (
-    <div className="relative h-[68vh] min-h-[420px] w-full overflow-hidden rounded-b-[2.5rem] sm:rounded-b-[3rem]">
-      {slides.map((slide, i) => (
-        <div
-          key={slide.id}
-          className={cn(
-            "absolute inset-0 transition-opacity duration-700 ease-out",
-            i === active ? "opacity-100" : "opacity-0 pointer-events-none"
-          )}
-        >
-          <Image
-            src={slide.image_url}
-            alt={slide.title}
-            fill
-            priority={i === 0}
-            className="object-cover"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-parish-900/85 via-parish-900/30 to-parish-900/10" />
-          <div className="absolute inset-0 flex items-end">
-            <div className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
-              <p className="mb-3 inline-block rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-gold-400 backdrop-blur">
-                Selamat Datang
-              </p>
-              <h1 className="max-w-2xl font-display text-4xl font-medium leading-tight text-white sm:text-5xl">
-                {slide.title}
-              </h1>
-              {slide.subtitle && (
-                <p className="mt-4 max-w-xl text-base text-white/85 sm:text-lg">
-                  {slide.subtitle}
-                </p>
-              )}
-              {slide.link_url && (
-                <Link
-                  href={slide.link_url}
-                  className="mt-7 inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-parish-800 shadow-lg transition-transform hover:scale-[1.03]"
-                >
-                  Selengkapnya
-                </Link>
-              )}
-            </div>
+    <section className="relative min-h-[86vh] w-full overflow-hidden bg-ink font-sans-alt">
+      <div ref={photoRef} className="absolute inset-0 will-change-transform">
+        {slides.map((s, i) => (
+          <div
+            key={s.id}
+            className={cn(
+              "absolute inset-0 transition-opacity duration-1000 ease-out",
+              i === active ? "opacity-100" : "opacity-0"
+            )}
+          >
+            <Image
+              src={s.image_url}
+              alt={s.title}
+              fill
+              priority={i === 0}
+              className="scale-110 object-cover"
+              sizes="100vw"
+            />
           </div>
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
+      </div>
+
+      <div
+        ref={textRef}
+        className="relative z-10 flex min-h-[86vh] flex-col justify-center gap-7 px-6 py-32 sm:px-10 lg:px-14"
+      >
+        <div
+          className="flex items-center gap-4"
+          style={{
+            animation:
+              "fadeUp calc(750ms * var(--m)) cubic-bezier(.22,1,.36,1) calc(200ms * var(--m)) both",
+          }}
+        >
+          <span
+            className="h-px w-[52px] origin-left bg-accent"
+            style={{
+              animation:
+                "hairline calc(900ms * var(--m)) cubic-bezier(.22,1,.36,1) calc(200ms * var(--m)) both",
+            }}
+          />
+          <span className="text-[10px] uppercase tracking-[.34em] text-paper/55">
+            Gereja Katolik
+          </span>
         </div>
-      ))}
+
+        <h1
+          key={slide.id}
+          className="m-0 max-w-4xl font-display-alt text-[clamp(40px,5.6vw,92px)] font-light leading-[.98] tracking-[-.015em] text-paper"
+        >
+          {lines.map((line, i) => (
+            <span key={i} className="block overflow-hidden pb-[.05em]">
+              <span
+                className="block"
+                style={{
+                  animation: `lineUp calc(1000ms * var(--m)) cubic-bezier(.22,1,.36,1) calc(${
+                    300 + i * 120
+                  }ms * var(--m)) both`,
+                }}
+              >
+                {line}
+              </span>
+            </span>
+          ))}
+        </h1>
+
+        {slide.subtitle && (
+          <p
+            className="m-0 max-w-[46ch] text-base leading-[1.75] text-paper/60"
+            style={{
+              animation:
+                "fadeUp calc(850ms * var(--m)) cubic-bezier(.22,1,.36,1) calc(680ms * var(--m)) both",
+            }}
+          >
+            {slide.subtitle}
+          </p>
+        )}
+
+        {slide.link_url && (
+          <Link
+            href={slide.link_url}
+            className="mt-2 inline-flex w-fit items-center border border-accent/50 px-6 py-3 text-[11px] uppercase tracking-[.2em] text-paper transition-colors duration-300 hover:bg-accent hover:text-ink"
+            style={{
+              animation:
+                "fadeUp calc(850ms * var(--m)) cubic-bezier(.22,1,.36,1) calc(820ms * var(--m)) both",
+            }}
+          >
+            Selengkapnya
+          </Link>
+        )}
+      </div>
 
       {slides.length > 1 && (
-        <>
-          <button
-            onClick={prev}
-            aria-label="Slide sebelumnya"
-            className="absolute left-4 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur transition hover:bg-white/25 sm:flex"
-          >
-            <ChevronLeft size={20} />
-          </button>
-          <button
-            onClick={next}
-            aria-label="Slide berikutnya"
-            className="absolute right-4 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur transition hover:bg-white/25 sm:flex"
-          >
-            <ChevronRight size={20} />
-          </button>
-
-          <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
-            {slides.map((slide, i) => (
+        <div className="absolute bottom-10 left-6 z-10 flex items-center gap-5 sm:left-10 lg:left-14">
+          <div className="flex gap-2">
+            {slides.map((s, i) => (
               <button
-                key={slide.id}
+                key={s.id}
                 aria-label={`Ke slide ${i + 1}`}
                 onClick={() => setActive(i)}
                 className={cn(
-                  "h-1.5 rounded-full transition-all",
-                  i === active ? "w-8 bg-white" : "w-2.5 bg-white/40"
+                  "h-px transition-all duration-500",
+                  i === active ? "w-10 bg-accent" : "w-5 bg-paper/30 hover:bg-paper/60"
                 )}
               />
             ))}
           </div>
-        </>
+          <span className="text-[10px] uppercase tracking-[.22em] text-paper/40">
+            {String(active + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
+          </span>
+          <div className="flex gap-1">
+            <button
+              onClick={prev}
+              aria-label="Slide sebelumnya"
+              className="px-2 text-paper/40 transition-colors hover:text-paper"
+            >
+              ←
+            </button>
+            <button
+              onClick={next}
+              aria-label="Slide berikutnya"
+              className="px-2 text-paper/40 transition-colors hover:text-paper"
+            >
+              →
+            </button>
+          </div>
+        </div>
       )}
-    </div>
+    </section>
   );
 }

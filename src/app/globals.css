@@ -22,6 +22,16 @@
   --color-cream-50: #fdfcf9;
   --color-cream-100: #f8f5ee;
   --color-cream-200: #f0ead9;
+
+  /* Homepage redesign palette — see DESIGN-SYSTEM.md */
+  --color-ink: #0f0c09;
+  --color-ink-soft: #171310;
+  --color-paper: #ede7dc;
+  --color-accent: #c8a567;
+  --color-accent-ink: #8a6a2e;
+
+  /* Global motion tempo multiplier (Pelan 1.35 / Sedang 1 / Cepat 0.7) */
+  --m: 1;
 }
 
 @theme inline {
@@ -48,6 +58,15 @@
   --color-cream-50: var(--color-cream-50);
   --color-cream-100: var(--color-cream-100);
   --color-cream-200: var(--color-cream-200);
+
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-paper: var(--color-paper);
+  --color-accent: var(--color-accent);
+  --color-accent-ink: var(--color-accent-ink);
+
+  --font-display-alt: var(--font-cormorant);
+  --font-sans-alt: var(--font-karla);
 }
 
 body {
@@ -87,4 +106,99 @@ body {
 .ql-snow .ql-editor {
   overflow-wrap: normal !important;
   word-break: normal !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Homepage redesign — motion. See DESIGN-SYSTEM.md §3.
+   Durations are multiplied by --m so the tempo can be tuned globally.
+   ───────────────────────────────────────────────────────────── */
+
+@keyframes veilUp {
+  to {
+    transform: translateY(-101%);
+  }
+}
+
+@keyframes lineUp {
+  from {
+    transform: translateY(118%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hairline {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes hairlineY {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes cueDrop {
+  0% {
+    transform: translateY(0);
+    opacity: 0.12;
+  }
+  45% {
+    transform: translateY(10px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.12;
+  }
+}
+
+/* Elements marked for scroll reveal start hidden; the observer clears this. */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+}
+
+/* All of the above is decoration — the page must read fully without it. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
 }
