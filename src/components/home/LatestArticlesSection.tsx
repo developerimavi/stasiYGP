@@ -10,7 +10,7 @@ function ArticleTile({ article, i }: { article: Article; i: number }) {
       className="reveal group block"
       data-reveal-i={i}
     >
-      <div className="relative aspect-[16/11] w-full overflow-hidden rounded-2xl bg-parish-100">
+      <div className="relative aspect-[16/11] w-full overflow-hidden bg-parish-100">
         {article.cover_image_url ? (
           <Image
             src={article.cover_image_url}

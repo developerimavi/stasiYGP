@@ -33,21 +33,21 @@ export function WelcomeModal({ slides }: { slides: WelcomeSlide[] }) {
       onClick={() => setOpen(false)}
     >
       <div
-        className="flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"
+        className="flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between border-b border-parish-100 px-6 py-4">
+        <div className="flex items-start justify-between gap-4 border-b border-parish-100 px-8 py-6">
           {slides.length > 1 ? (
-            <div className="flex gap-1">
+            <div className="flex flex-wrap gap-1">
               {slides.map((s) => (
                 <button
                   key={s.id}
                   type="button"
                   onClick={() => setActiveId(s.id)}
-                  className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
+                  className={`px-4 py-2 text-[11px] uppercase tracking-[.16em] transition-colors ${
                     s.id === active.id
                       ? "bg-parish-600 text-white"
-                      : "text-parish-700 hover:bg-parish-50"
+                      : "text-parish-700/70 hover:bg-parish-50"
                   }`}
                 >
                   {s.title}
@@ -55,33 +55,43 @@ export function WelcomeModal({ slides }: { slides: WelcomeSlide[] }) {
               ))}
             </div>
           ) : (
-            <h2 className="font-display text-lg text-parish-900">{active.title}</h2>
+            <div>
+              <div className="mb-3 flex items-center gap-3">
+                <span className="h-px w-8 bg-gold-600" />
+                <span className="text-[10px] uppercase tracking-[.3em] text-parish-700/55">
+                  Selamat Datang
+                </span>
+              </div>
+              <h2 className="font-display text-2xl leading-snug text-parish-900">
+                {active.title}
+              </h2>
+            </div>
           )}
           <button
             type="button"
             onClick={() => setOpen(false)}
             aria-label="Tutup"
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-parish-500 hover:bg-parish-50"
+            className="flex h-8 w-8 shrink-0 items-center justify-center text-parish-500 transition-colors hover:bg-parish-50 hover:text-parish-800"
           >
             <X size={18} />
           </button>
         </div>
 
-        <div className="overflow-y-auto px-6 py-6">
-          <div className="flex gap-4">
+        <div className="overflow-y-auto px-8 py-7">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end">
             {active.photo_url ? (
-              <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl border border-parish-100">
+              <div className="relative aspect-[3/4] w-full shrink-0 overflow-hidden border border-parish-100 sm:h-[336px] sm:w-[252px]">
                 <Image
                   src={active.photo_url}
                   alt={active.name ?? active.title}
                   fill
                   className="object-cover"
-                  sizes="96px"
+                  sizes="(min-width: 640px) 252px, 100vw"
                 />
               </div>
             ) : (
               active.name && (
-                <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-xl bg-parish-50 font-display text-2xl text-parish-500">
+                <div className="flex aspect-[3/4] w-full shrink-0 items-center justify-center bg-parish-50 font-display text-6xl text-parish-500 sm:h-[336px] sm:w-[252px]">
                   {active.name
                     .split(" ")
                     .filter(Boolean)
@@ -94,13 +104,16 @@ export function WelcomeModal({ slides }: { slides: WelcomeSlide[] }) {
             )}
 
             {active.name && (
-              <div className="min-w-0 flex-1 self-center">
-                <p className="font-display text-lg text-parish-900">{active.name}</p>
+              <div className="min-w-0 flex-1">
+                <p className="font-display text-2xl text-parish-900">{active.name}</p>
               </div>
             )}
           </div>
 
-          <RichTextContent html={active.content} className="mt-4 text-sm text-parish-800/90" />
+          <RichTextContent
+            html={active.content}
+            className="mt-6 text-[15px] leading-[1.8] text-parish-800/90"
+          />
         </div>
       </div>
     </div>

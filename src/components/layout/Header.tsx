@@ -74,7 +74,7 @@ function DesktopDropdown({
       </button>
       <div
         className={cn(
-          "absolute left-1/2 top-full grid w-56 -translate-x-1/2 grid-cols-1 gap-0.5 rounded-xl border border-parish-100 bg-white p-2 shadow-lg transition-all",
+          "absolute left-1/2 top-full grid w-56 -translate-x-1/2 grid-cols-1 gap-0.5 border border-parish-100 bg-white p-2 shadow-lg transition-all",
           open ? "visible opacity-100" : "invisible opacity-0"
         )}
       >
@@ -82,7 +82,7 @@ function DesktopDropdown({
           <Link
             key={item.href}
             href={item.href}
-            className="rounded-lg px-3 py-2 text-sm text-parish-800 hover:bg-parish-50"
+            className="px-3 py-2 text-sm text-parish-800 hover:bg-parish-50"
           >
             {item.label}
           </Link>
@@ -225,7 +225,7 @@ export function Header() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-lg px-3 py-2.5 text-sm font-medium text-parish-800 hover:bg-parish-50"
+                    className="block px-3 py-2.5 text-sm font-medium text-parish-800 hover:bg-parish-50"
                   >
                     {item.label}
                   </Link>
@@ -236,7 +236,7 @@ export function Header() {
                 key={entry.href}
                 href={entry.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2.5 text-sm font-medium text-parish-800 hover:bg-parish-50"
+                className="px-3 py-2.5 text-sm font-medium text-parish-800 hover:bg-parish-50"
               >
                 {entry.label}
               </Link>
