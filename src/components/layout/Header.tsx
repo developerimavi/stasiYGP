@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
@@ -44,7 +45,15 @@ const NAV: NavEntry[] = [
   },
 ];
 
-function DesktopDropdown({ label, items }: { label: string; items: NavItem[] }) {
+function DesktopDropdown({
+  label,
+  items,
+  overlay,
+}: {
+  label: string;
+  items: NavItem[];
+  overlay?: boolean;
+}) {
   const [open, setOpen] = useState(false);
   return (
     <div
@@ -52,7 +61,14 @@ function DesktopDropdown({ label, items }: { label: string; items: NavItem[] }) 
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button className="flex items-center gap-1 text-sm font-medium text-parish-800/80 transition-colors hover:text-parish-700">
+      <button
+        className={cn(
+          "flex items-center gap-1 text-sm font-medium transition-colors",
+          overlay
+            ? "text-paper/70 hover:text-paper"
+            : "text-parish-800/80 hover:text-parish-700"
+        )}
+      >
         {label}
         <ChevronDown size={14} />
       </button>
@@ -78,11 +94,40 @@ function DesktopDropdown({ label, items }: { label: string; items: NavItem[] }) 
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  // The redesigned home page opens on a dark hero, so the header floats over
+  // it transparently and only gains a background once you scroll past it.
+  const overlay = pathname === "/";
+
+  useEffect(() => {
+    if (!overlay) return;
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [overlay]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-parish-100/80 bg-cream-50/90 backdrop-blur">
+    <header
+      className={cn(
+        "sticky top-0 z-50 transition-colors duration-300",
+        overlay
+          ? scrolled
+            ? "border-b border-white/10 bg-ink/80 backdrop-blur"
+            : "border-b border-transparent bg-transparent"
+          : "border-b border-parish-100/80 bg-cream-50/90 backdrop-blur"
+      )}
+    >
       <Container className="flex h-20 items-center justify-between gap-4">
-        <Link href="/" className="flex shrink-0 items-center gap-2.5 text-parish-900">
+        <Link
+          href="/"
+          className={cn(
+            "flex shrink-0 items-center gap-2.5 transition-colors",
+            overlay ? "text-paper" : "text-parish-900"
+          )}
+        >
           <Image
             src="/logo.png"
             alt="Logo Paroki Yohanes Gabriel Perboyre"
@@ -91,10 +136,20 @@ export function Header() {
             className="h-14 w-14 object-contain"
           />
           <span className="flex flex-col leading-tight">
-            <span className="text-[11px] font-semibold uppercase tracking-wide text-gold-600">
+            <span
+              className={cn(
+                "text-[11px] font-semibold uppercase tracking-wide",
+                overlay ? "text-accent" : "text-gold-600"
+              )}
+            >
               Gereja Katolik
             </span>
-            <span className="font-display text-base whitespace-nowrap sm:text-lg">
+            <span
+              className={cn(
+                "whitespace-nowrap text-base sm:text-lg",
+                overlay ? "font-display-alt font-light" : "font-display"
+              )}
+            >
               Paroki Yohanes Gabriel Perboyre
             </span>
           </span>
@@ -103,12 +158,22 @@ export function Header() {
         <nav className="hidden items-center gap-7 md:flex">
           {NAV.map((entry) =>
             "items" in entry ? (
-              <DesktopDropdown key={entry.label} label={entry.label} items={entry.items} />
+              <DesktopDropdown
+                key={entry.label}
+                label={entry.label}
+                items={entry.items}
+                overlay={overlay}
+              />
             ) : (
               <Link
                 key={entry.href}
                 href={entry.href}
-                className="text-sm font-medium text-parish-800/80 transition-colors hover:text-parish-700"
+                className={cn(
+                  "text-sm font-medium transition-colors",
+                  overlay
+                    ? "text-paper/70 hover:text-paper"
+                    : "text-parish-800/80 hover:text-parish-700"
+                )}
               >
                 {entry.label}
               </Link>
@@ -117,13 +182,25 @@ export function Header() {
         </nav>
 
         <div className="hidden lg:block">
-          <Button href="/jadwal-misa" size="sm">
-            Lihat Jadwal Misa
-          </Button>
+          {overlay ? (
+            <Link
+              href="/jadwal-misa"
+              className="inline-flex items-center border border-accent/50 px-5 py-2.5 text-[11px] uppercase tracking-[.2em] text-paper transition-colors duration-300 hover:bg-accent hover:text-ink"
+            >
+              Lihat Jadwal Misa
+            </Link>
+          ) : (
+            <Button href="/jadwal-misa" size="sm">
+              Lihat Jadwal Misa
+            </Button>
+          )}
         </div>
 
         <button
-          className="flex h-9 w-9 items-center justify-center rounded-full text-parish-800 md:hidden"
+          className={cn(
+            "flex h-9 w-9 items-center justify-center rounded-full md:hidden",
+            overlay ? "text-paper" : "text-parish-800"
+          )}
           onClick={() => setOpen((v) => !v)}
           aria-label="Buka menu"
         >

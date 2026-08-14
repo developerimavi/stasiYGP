@@ -1,48 +1,38 @@
-import { Clock, MapPin, Radio } from "lucide-react";
-import { Card } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import Link from "next/link";
+import { Radio } from "lucide-react";
 import type { MassSchedule } from "@/types/database";
 
-function ScheduleRow({ s }: { s: MassSchedule }) {
+function ScheduleRow({ s, i }: { s: MassSchedule; i: number }) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-parish-100 py-3 first:border-0 first:pt-0">
-      <div className="flex items-center gap-2">
-        <Clock size={16} className="shrink-0 text-parish-500" />
-        <span className="font-display text-lg text-parish-900">{s.time}</span>
-        <span className="text-sm text-parish-700/70">{s.day_label}</span>
-      </div>
-      <div className="flex items-center gap-3">
-        <span className="text-sm text-parish-700/70">{s.category}</span>
+    <div
+      className="reveal grid grid-cols-[38px_1fr] items-baseline gap-x-5 gap-y-1 border-b border-ink-soft/12 py-6 transition-[background-color,padding-left] duration-300 hover:bg-accent/[.14] hover:pl-4 sm:grid-cols-[38px_minmax(0,1.1fr)_minmax(0,1fr)_40px] sm:items-center"
+      data-reveal-i={i}
+    >
+      <span className="text-[11px] tracking-[.16em] text-ink-soft/35">
+        {String(i + 1).padStart(2, "0")}
+      </span>
+
+      <span className="font-display-alt text-[28px] leading-none sm:text-[34px]">
+        {s.day_label} <span className="text-accent-ink">{s.time}</span>
+      </span>
+
+      <span className="col-start-2 text-sm text-ink-soft/55 sm:col-start-3">
+        {s.category}
         {s.stream_url && (
           <a
             href={s.stream_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-parish-600 hover:text-parish-700"
+            className="ml-3 inline-flex items-center gap-1.5 text-accent-ink hover:underline"
           >
-            <Radio size={14} />
+            <Radio size={13} />
             Siaran Langsung
           </a>
         )}
-      </div>
-    </div>
-  );
-}
+      </span>
 
-function ChapelCard({ chapel, schedules }: { chapel: string; schedules: MassSchedule[] }) {
-  return (
-    <Card className="p-5">
-      <p className="flex items-center gap-1.5 font-display text-lg text-parish-900">
-        <MapPin size={16} className="text-parish-500" />
-        {chapel}
-      </p>
-      <div className="mt-2">
-        {schedules.map((s) => (
-          <ScheduleRow key={s.id} s={s} />
-        ))}
-      </div>
-    </Card>
+      <span className="hidden text-right text-accent-ink sm:block">→</span>
+    </div>
   );
 }
 
@@ -50,29 +40,43 @@ export function MassScheduleSection({ schedules }: { schedules: MassSchedule[] }
   const chapels = Array.from(new Set(schedules.map((s) => s.chapel)));
 
   return (
-    <section>
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <SectionHeading
-          eyebrow="Peribadatan"
-          title="Jadwal Misa"
-          description="Bergabunglah dalam perayaan Ekaristi bersama umat paroki."
-        />
-        <Button href="/jadwal-misa" variant="outline" size="sm">
-          Lihat Semua Jadwal
-        </Button>
-      </div>
+    <section className="bg-paper px-6 py-24 font-sans-alt text-ink-soft sm:px-10 lg:px-14 lg:py-32">
+      <div className="mx-auto max-w-[1240px]">
+        <div
+          className="reveal flex flex-col justify-between gap-6 border-b border-ink-soft/14 pb-10 sm:flex-row sm:items-end sm:gap-14"
+          data-reveal-i={0}
+        >
+          <h2 className="m-0 max-w-[16ch] font-display-alt text-[clamp(32px,4.4vw,64px)] font-light leading-[1.02] tracking-[-.015em]">
+            Jadwal ibadah pekan ini
+          </h2>
+          <p className="m-0 max-w-[32ch] text-sm leading-[1.8] text-ink-soft/55">
+            Datang lebih awal bila ingin berdoa dalam hening terlebih dahulu.
+          </p>
+        </div>
 
-      <div
-        className="mt-8 grid items-start gap-6"
-        style={{ gridTemplateColumns: `repeat(${Math.max(chapels.length, 1)}, minmax(0, 1fr))` }}
-      >
-        {chapels.map((chapel) => (
-          <ChapelCard
-            key={chapel}
-            chapel={chapel}
-            schedules={schedules.filter((s) => s.chapel === chapel)}
-          />
-        ))}
+        <div className="mt-4 grid gap-x-16 lg:grid-cols-2">
+          {chapels.map((chapel) => (
+            <div key={chapel}>
+              <p className="reveal pt-10 pb-2 text-[10px] uppercase tracking-[.3em] text-accent-ink">
+                {chapel}
+              </p>
+              {schedules
+                .filter((s) => s.chapel === chapel)
+                .map((s, i) => (
+                  <ScheduleRow key={s.id} s={s} i={i} />
+                ))}
+            </div>
+          ))}
+        </div>
+
+        <div className="reveal mt-12">
+          <Link
+            href="/jadwal-misa"
+            className="inline-flex items-center border border-accent-ink/40 px-6 py-3 text-[11px] uppercase tracking-[.2em] transition-colors duration-300 hover:bg-accent-ink hover:text-paper"
+          >
+            Lihat Semua Jadwal
+          </Link>
+        </div>
       </div>
     </section>
   );

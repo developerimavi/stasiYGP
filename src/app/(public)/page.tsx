@@ -1,10 +1,11 @@
-import { Container } from "@/components/ui/Container";
 import { HeroSlider } from "@/components/home/HeroSlider";
 import { MassScheduleSection } from "@/components/home/MassScheduleSection";
 import { LatestArticlesSection } from "@/components/home/LatestArticlesSection";
 import { AnnouncementSection } from "@/components/home/AnnouncementSection";
 import { LiturgicalTodayCard } from "@/components/home/LiturgicalTodayCard";
 import { WelcomeModal } from "@/components/home/WelcomeModal";
+import { OpeningVeil } from "@/components/home/OpeningVeil";
+import { RevealProvider } from "@/components/home/RevealProvider";
 import {
   getHeroSlides,
   getAllMassSchedules,
@@ -28,17 +29,16 @@ export default async function HomePage() {
     ]);
 
   return (
-    <div className="pb-24">
+    <div className="bg-ink">
+      <OpeningVeil />
+      <RevealProvider />
       <WelcomeModal slides={welcomeSlides} />
+
       <HeroSlider slides={slides} />
-
-      <Container className="mt-10 space-y-20">
-        {liturgicalDay && <LiturgicalTodayCard day={liturgicalDay} />}
-
-        <MassScheduleSection schedules={schedules} />
-        <AnnouncementSection announcements={announcements} />
-        <LatestArticlesSection articles={articles} />
-      </Container>
+      {liturgicalDay && <LiturgicalTodayCard day={liturgicalDay} />}
+      <MassScheduleSection schedules={schedules} />
+      <AnnouncementSection announcements={announcements} />
+      <LatestArticlesSection articles={articles} />
     </div>
   );
 }
