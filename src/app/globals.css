@@ -23,13 +23,6 @@
   --color-cream-100: #f8f5ee;
   --color-cream-200: #f0ead9;
 
-  /* Homepage redesign palette — see DESIGN-SYSTEM.md */
-  --color-ink: #0f0c09;
-  --color-ink-soft: #171310;
-  --color-paper: #ede7dc;
-  --color-accent: #c8a567;
-  --color-accent-ink: #8a6a2e;
-
   /* Global motion tempo multiplier (Pelan 1.35 / Sedang 1 / Cepat 0.7) */
   --m: 1;
 }
@@ -59,14 +52,6 @@
   --color-cream-100: var(--color-cream-100);
   --color-cream-200: var(--color-cream-200);
 
-  --color-ink: var(--color-ink);
-  --color-ink-soft: var(--color-ink-soft);
-  --color-paper: var(--color-paper);
-  --color-accent: var(--color-accent);
-  --color-accent-ink: var(--color-accent-ink);
-
-  --font-display-alt: var(--font-cormorant);
-  --font-sans-alt: var(--font-karla);
 }
 
 body {

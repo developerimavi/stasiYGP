@@ -1,5 +1,42 @@
 import type { LiturgicalColor } from "@/types/database";
 
+/**
+ * Muted tints of each liturgical colour, for large surfaces like the home page
+ * section background. The saturated `solid`/`dot` variants below are right for
+ * small badges but overwhelming across a full-width block, so these stay soft
+ * and warm enough to sit beside the cream palette.
+ */
+export const LITURGICAL_COLOR_SOFT: Record<
+  LiturgicalColor,
+  { section: string; rule: string; accent: string }
+> = {
+  putih: {
+    section: "bg-[#faf7f0]",
+    rule: "bg-[#c9b892]",
+    accent: "text-[#8a7742]",
+  },
+  merah: {
+    section: "bg-[#fbf3f1]",
+    rule: "bg-[#c98d80]",
+    accent: "text-[#a15343]",
+  },
+  hijau: {
+    section: "bg-[#f3f8f4]",
+    rule: "bg-[#8bb69b]",
+    accent: "text-[#3f7256]",
+  },
+  ungu: {
+    section: "bg-[#f7f4fa]",
+    rule: "bg-[#a99ec2]",
+    accent: "text-[#6b5d8a]",
+  },
+  merah_muda: {
+    section: "bg-[#fdf4f6]",
+    rule: "bg-[#d9a3b3]",
+    accent: "text-[#a05c73]",
+  },
+};
+
 export const LITURGICAL_COLOR_STYLES: Record<
   LiturgicalColor,
   { label: string; dot: string; bg: string; text: string; solid: string; solidText: string }
