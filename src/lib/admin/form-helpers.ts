@@ -7,6 +7,19 @@ export function slugify(input: string): string {
     .replace(/-+/g, "-");
 }
 
+/**
+ * Text pasted from Word/PDF into the rich text editor encodes every space as
+ * `&nbsp;`. Browsers won't line-break on those, so a whole paragraph becomes
+ * one unbreakable "word" and gets chopped mid-word at the container edge.
+ * Collapse them back to ordinary spaces on save.
+ */
+function normalizeSpaces(value: string): string {
+  return value
+    .replace(/&nbsp;/g, " ")
+    .replace(/ /g, " ")
+    .replace(/ {2,}/g, " ");
+}
+
 /** Extracts non-empty string/number fields from FormData, coercing "" to null and numeric-looking fields via `numberFields`/`boolFields`. */
 export function formToValues(
   formData: FormData,
@@ -28,7 +41,7 @@ export function formToValues(
       values[key] = value === "" ? null : Number(value);
       continue;
     }
-    values[key] = value === "" ? null : value;
+    values[key] = value === "" ? null : normalizeSpaces(value);
   }
 
   for (const key of boolFields) {
