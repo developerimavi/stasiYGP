@@ -77,3 +77,17 @@ body {
 .rich-text-editor .ql-editor {
   min-height: 160px;
 }
+
+/* Public rendering of rich text (RichTextContent): Quill's base .ql-editor
+   sets overflow-wrap: break-word, which breaks long words mid-syllable even
+   when a normal wrap at the previous space would fit. Only break words that
+   are actually too long for the container. */
+.ql-snow .ql-editor {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.ql-snow .ql-editor p,
+.ql-snow .ql-editor li {
+  overflow-wrap: anywhere;
+}
