@@ -19,6 +19,7 @@ import type {
   SacramentForm,
   SocialMinistry,
   Territory,
+  WelcomeSlide,
 } from "@/types/database";
 
 export async function getHeroSlides(): Promise<HeroSlide[]> {
@@ -246,6 +247,18 @@ export async function getPastors(): Promise<Pastor[]> {
   const { data, error } = await supabase
     .from("pastors")
     .select("*")
+    .order("sort_order", { ascending: true });
+
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function getWelcomeSlides(): Promise<WelcomeSlide[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("welcome_slides")
+    .select("*")
+    .eq("status", "published")
     .order("sort_order", { ascending: true });
 
   if (error) throw error;

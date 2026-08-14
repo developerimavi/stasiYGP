@@ -19,6 +19,7 @@ import {
   FileText,
   Building2,
   HandCoins,
+  MessageSquareText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LogoutButton } from "@/app/admin/LogoutButton";
@@ -30,6 +31,7 @@ const NAV = [
   { href: "/admin/jadwal-misa", label: "Jadwal Misa", icon: Clock },
   { href: "/admin/kalender-liturgi", label: "Kalender Liturgi", icon: CalendarHeart },
   { href: "/admin/hero-slides", label: "Hero Slides", icon: GalleryHorizontalEnd },
+  { href: "/admin/sambutan", label: "Sambutan (Modal Beranda)", icon: MessageSquareText },
   { href: "/admin/organisasi", label: "Organisasi (BGKP/DPP)", icon: Users },
   { href: "/admin/pastor", label: "Pastor", icon: BookOpen },
   { href: "/admin/sejarah", label: "Sejarah", icon: BookOpen },

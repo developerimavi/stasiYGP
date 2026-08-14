@@ -239,6 +239,19 @@ create table parish_history (
   sort_order int not null default 0
 );
 
+-- Home page welcome modal slides (e.g. parish priest's launch message).
+-- Max 3 rows, enforced at the application layer.
+create table welcome_slides (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  name text,
+  photo_url text,
+  content text not null,
+  status text not null default 'draft' check (status in ('draft', 'published')),
+  sort_order int not null default 0,
+  created_at timestamptz not null default now()
+);
+
 -- ==========================================================================
 -- Row Level Security: public read-only access
 -- ==========================================================================
@@ -263,6 +276,7 @@ alter table neighborhoods enable row level security;
 alter table pastors enable row level security;
 alter table parish_profile enable row level security;
 alter table parish_history enable row level security;
+alter table welcome_slides enable row level security;
 
 create policy "public read categories" on categories for select using (true);
 create policy "public read articles" on articles for select using (status = 'published');
@@ -284,6 +298,8 @@ create policy "public read neighborhoods" on neighborhoods for select using (tru
 create policy "public read pastors" on pastors for select using (true);
 create policy "public read parish_profile" on parish_profile for select using (true);
 create policy "public read parish_history" on parish_history for select using (true);
+create policy "public read published welcome_slides" on welcome_slides for select using (status = 'published');
+create policy "authenticated read welcome_slides" on welcome_slides for select to authenticated using (true);
 
 -- ==========================================================================
 -- Seed data

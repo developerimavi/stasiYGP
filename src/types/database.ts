@@ -215,3 +215,14 @@ export interface ParishHistory {
   content: string;
   sort_order: number;
 }
+
+export interface WelcomeSlide {
+  id: string;
+  title: string;
+  name: string | null;
+  photo_url: string | null;
+  content: string;
+  status: ContentStatus;
+  sort_order: number;
+  created_at: string;
+}
