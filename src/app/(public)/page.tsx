@@ -29,7 +29,7 @@ export default async function HomePage() {
     ]);
 
   return (
-    <div className="bg-ink">
+    <div className="bg-cream-50">
       <OpeningVeil />
       <RevealProvider />
       <WelcomeModal slides={welcomeSlides} />

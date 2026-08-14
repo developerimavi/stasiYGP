@@ -26,14 +26,14 @@ export function OpeningVeil() {
   return (
     <div className="pointer-events-none fixed inset-0 z-[200]" aria-hidden>
       <div
-        className="absolute inset-0 bg-paper"
+        className="absolute inset-0 bg-cream-100"
         style={{
           animation:
             "veilUp calc(1000ms * var(--m)) cubic-bezier(.78,0,.22,1) calc(1400ms * var(--m)) both",
         }}
       />
       <div
-        className="absolute inset-0 flex flex-col items-center justify-center gap-6 bg-ink"
+        className="absolute inset-0 flex flex-col items-center justify-center gap-6 bg-parish-900"
         style={{
           animation:
             "veilUp calc(1000ms * var(--m)) cubic-bezier(.78,0,.22,1) calc(1520ms * var(--m)) both",
@@ -43,8 +43,8 @@ export function OpeningVeil() {
           className="relative h-7 w-7"
           style={{ animation: "fadeIn calc(700ms * var(--m)) ease-out both" }}
         >
-          <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-accent" />
-          <span className="absolute left-0 top-[34%] h-px w-full bg-accent" />
+          <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gold-400" />
+          <span className="absolute left-0 top-[34%] h-px w-full bg-gold-400" />
         </div>
         <div
           className="h-[52px] w-px origin-top"
@@ -55,7 +55,7 @@ export function OpeningVeil() {
           }}
         />
         <div
-          className="pl-[.42em] text-[10px] uppercase tracking-[.42em] text-paper/40"
+          className="pl-[.42em] text-[10px] uppercase tracking-[.42em] text-white/50"
           style={{
             animation:
               "fadeIn calc(800ms * var(--m)) ease-out calc(320ms * var(--m)) both",

@@ -65,7 +65,7 @@ function DesktopDropdown({
         className={cn(
           "flex items-center gap-1 text-sm font-medium transition-colors",
           overlay
-            ? "text-paper/70 hover:text-paper"
+            ? "text-white/75 hover:text-white"
             : "text-parish-800/80 hover:text-parish-700"
         )}
       >
@@ -115,7 +115,7 @@ export function Header() {
         "sticky top-0 z-50 transition-colors duration-300",
         overlay
           ? scrolled
-            ? "border-b border-white/10 bg-ink/80 backdrop-blur"
+            ? "border-b border-white/10 bg-parish-900/85 backdrop-blur"
             : "border-b border-transparent bg-transparent"
           : "border-b border-parish-100/80 bg-cream-50/90 backdrop-blur"
       )}
@@ -125,7 +125,7 @@ export function Header() {
           href="/"
           className={cn(
             "flex shrink-0 items-center gap-2.5 transition-colors",
-            overlay ? "text-paper" : "text-parish-900"
+            overlay ? "text-white" : "text-parish-900"
           )}
         >
           <Image
@@ -139,17 +139,12 @@ export function Header() {
             <span
               className={cn(
                 "text-[11px] font-semibold uppercase tracking-wide",
-                overlay ? "text-accent" : "text-gold-600"
+                overlay ? "text-gold-400" : "text-gold-600"
               )}
             >
               Gereja Katolik
             </span>
-            <span
-              className={cn(
-                "whitespace-nowrap text-base sm:text-lg",
-                overlay ? "font-display-alt font-light" : "font-display"
-              )}
-            >
+            <span className="whitespace-nowrap font-display text-base sm:text-lg">
               Paroki Yohanes Gabriel Perboyre
             </span>
           </span>
@@ -171,7 +166,7 @@ export function Header() {
                 className={cn(
                   "text-sm font-medium transition-colors",
                   overlay
-                    ? "text-paper/70 hover:text-paper"
+                    ? "text-white/75 hover:text-white"
                     : "text-parish-800/80 hover:text-parish-700"
                 )}
               >
@@ -185,7 +180,7 @@ export function Header() {
           {overlay ? (
             <Link
               href="/jadwal-misa"
-              className="inline-flex items-center border border-accent/50 px-5 py-2.5 text-[11px] uppercase tracking-[.2em] text-paper transition-colors duration-300 hover:bg-accent hover:text-ink"
+              className="inline-flex items-center border border-gold-400/50 px-5 py-2.5 text-[11px] uppercase tracking-[.2em] text-white transition-colors duration-300 hover:bg-gold-400 hover:text-parish-900"
             >
               Lihat Jadwal Misa
             </Link>
@@ -199,7 +194,7 @@ export function Header() {
         <button
           className={cn(
             "flex h-9 w-9 items-center justify-center rounded-full md:hidden",
-            overlay ? "text-paper" : "text-parish-800"
+            overlay ? "text-white" : "text-parish-800"
           )}
           onClick={() => setOpen((v) => !v)}
           aria-label="Buka menu"

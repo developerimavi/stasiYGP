@@ -74,7 +74,7 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
   const lines = words.length > 3 ? [words.slice(0, mid).join(" "), words.slice(mid).join(" ")] : [slide.title];
 
   return (
-    <section className="relative min-h-[86vh] w-full overflow-hidden bg-ink font-sans-alt">
+    <section className="relative min-h-[86vh] w-full overflow-hidden bg-parish-900">
       <div ref={photoRef} className="absolute inset-0 will-change-transform">
         {slides.map((s, i) => (
           <div
@@ -94,8 +94,8 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
             />
           </div>
         ))}
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-parish-900 via-parish-900/80 to-parish-900/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-parish-900 via-transparent to-parish-900/40" />
       </div>
 
       <div
@@ -110,20 +110,20 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
           }}
         >
           <span
-            className="h-px w-[52px] origin-left bg-accent"
+            className="h-px w-[52px] origin-left bg-gold-400"
             style={{
               animation:
                 "hairline calc(900ms * var(--m)) cubic-bezier(.22,1,.36,1) calc(200ms * var(--m)) both",
             }}
           />
-          <span className="text-[10px] uppercase tracking-[.34em] text-paper/55">
+          <span className="text-[10px] uppercase tracking-[.34em] text-white/55">
             Gereja Katolik
           </span>
         </div>
 
         <h1
           key={slide.id}
-          className="m-0 max-w-4xl font-display-alt text-[clamp(40px,5.6vw,92px)] font-light leading-[.98] tracking-[-.015em] text-paper"
+          className="m-0 max-w-4xl font-display text-[clamp(40px,5.6vw,92px)]  leading-[.98] tracking-[-.015em] text-white"
         >
           {lines.map((line, i) => (
             <span key={i} className="block overflow-hidden pb-[.05em]">
@@ -143,7 +143,7 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
 
         {slide.subtitle && (
           <p
-            className="m-0 max-w-[46ch] text-base leading-[1.75] text-paper/60"
+            className="m-0 max-w-[46ch] text-base leading-[1.75] text-white/60"
             style={{
               animation:
                 "fadeUp calc(850ms * var(--m)) cubic-bezier(.22,1,.36,1) calc(680ms * var(--m)) both",
@@ -156,7 +156,7 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
         {slide.link_url && (
           <Link
             href={slide.link_url}
-            className="mt-2 inline-flex w-fit items-center border border-accent/50 px-6 py-3 text-[11px] uppercase tracking-[.2em] text-paper transition-colors duration-300 hover:bg-accent hover:text-ink"
+            className="mt-2 inline-flex w-fit items-center border border-gold-400/50 px-6 py-3 text-[11px] uppercase tracking-[.2em] text-white transition-colors duration-300 hover:bg-gold-400 hover:text-parish-900"
             style={{
               animation:
                 "fadeUp calc(850ms * var(--m)) cubic-bezier(.22,1,.36,1) calc(820ms * var(--m)) both",
@@ -177,26 +177,26 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
                 onClick={() => setActive(i)}
                 className={cn(
                   "h-px transition-all duration-500",
-                  i === active ? "w-10 bg-accent" : "w-5 bg-paper/30 hover:bg-paper/60"
+                  i === active ? "w-10 bg-gold-400" : "w-5 bg-white/30 hover:bg-white/60"
                 )}
               />
             ))}
           </div>
-          <span className="text-[10px] uppercase tracking-[.22em] text-paper/40">
+          <span className="text-[10px] uppercase tracking-[.22em] text-white/40">
             {String(active + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
           </span>
           <div className="flex gap-1">
             <button
               onClick={prev}
               aria-label="Slide sebelumnya"
-              className="px-2 text-paper/40 transition-colors hover:text-paper"
+              className="px-2 text-white/40 transition-colors hover:text-white"
             >
               ←
             </button>
             <button
               onClick={next}
               aria-label="Slide berikutnya"
-              className="px-2 text-paper/40 transition-colors hover:text-paper"
+              className="px-2 text-white/40 transition-colors hover:text-white"
             >
               →
             </button>
