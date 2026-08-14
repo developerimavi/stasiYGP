@@ -1,8 +1,5 @@
-import { FileText, ExternalLink } from "lucide-react";
-import { Container } from "@/components/ui/Container";
-import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ExternalLink } from "lucide-react";
+import { PageSection, RevealItem } from "@/components/ui/PageSection";
 import { RichTextContent } from "@/components/ui/RichTextContent";
 import { getSacramentForms } from "@/lib/queries";
 import type { Metadata } from "next";
@@ -17,46 +14,49 @@ export default async function FormulirPage() {
   const forms = await getSacramentForms();
 
   return (
-    <Container className="py-16">
-      <SectionHeading
-        eyebrow="Administrasi"
-        title="Formulir"
-        description="Unduh formulir untuk keperluan sakramen dan administrasi paroki."
-      />
-
-      <div className="mt-10 grid gap-4 sm:grid-cols-2">
-        {forms.map((f) => (
-          <a
-            key={f.id}
-            href={f.file_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block"
-          >
-            <Card className="flex items-start gap-4 p-5">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-parish-50 text-parish-600">
-                <FileText size={20} />
+    <PageSection
+      eyebrow="Administrasi"
+      title="Formulir"
+      description="Unduh formulir untuk keperluan sakramen dan administrasi paroki."
+    >
+      <div>
+        {forms.map((f, i) => (
+          <RevealItem key={f.id} i={i + 1}>
+            <a
+              href={f.file_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="grid grid-cols-1 items-baseline gap-x-8 gap-y-2 border-b border-parish-100 py-6 transition-[background-color,padding-left] duration-300 hover:bg-parish-50 hover:pl-4 sm:grid-cols-[32px_minmax(0,1.3fr)_minmax(0,1fr)_32px] sm:items-center"
+            >
+              <span className="text-[11px] tracking-[.16em] text-parish-700/35">
+                {String(i + 1).padStart(2, "0")}
               </span>
-              <div className="flex-1">
-                <Badge>{f.category}</Badge>
-                <h3 className="mt-2 font-display text-base text-parish-900 group-hover:text-parish-700">
+
+              <span>
+                <span className="block font-display text-[20px] leading-snug text-parish-900 sm:text-[22px]">
                   {f.name}
-                </h3>
-                {f.description && (
-                  <RichTextContent
-                    html={f.description}
-                    className="mt-1 text-sm text-parish-700/75"
-                  />
-                )}
-                <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-parish-600">
-                  Buka di Google Drive
-                  <ExternalLink size={13} />
                 </span>
-              </div>
-            </Card>
-          </a>
+                <span className="mt-1 block text-[10px] uppercase tracking-[.16em] text-gold-600">
+                  {f.category}
+                </span>
+              </span>
+
+              <span className="text-sm text-parish-700/70">
+                {f.description ? (
+                  <RichTextContent html={f.description} className="line-clamp-2" />
+                ) : (
+                  <span className="inline-flex items-center gap-1.5">
+                    Buka di Google Drive
+                    <ExternalLink size={13} />
+                  </span>
+                )}
+              </span>
+
+              <span className="hidden text-right text-gold-600 sm:block">→</span>
+            </a>
+          </RevealItem>
         ))}
       </div>
-    </Container>
+    </PageSection>
   );
 }

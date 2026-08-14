@@ -5,7 +5,6 @@ import { AnnouncementSection } from "@/components/home/AnnouncementSection";
 import { LiturgicalTodayCard } from "@/components/home/LiturgicalTodayCard";
 import { WelcomeModal } from "@/components/home/WelcomeModal";
 import { OpeningVeil } from "@/components/home/OpeningVeil";
-import { RevealProvider } from "@/components/home/RevealProvider";
 import {
   getHeroSlides,
   getAllMassSchedules,
@@ -31,7 +30,6 @@ export default async function HomePage() {
   return (
     <div className="bg-cream-50">
       <OpeningVeil />
-      <RevealProvider />
       <WelcomeModal slides={welcomeSlides} />
 
       <HeroSlider slides={slides} />

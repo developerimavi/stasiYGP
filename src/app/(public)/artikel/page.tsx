@@ -1,5 +1,4 @@
-import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { PageSection, RevealItem } from "@/components/ui/PageSection";
 import { ArticleCard } from "@/components/articles/ArticleCard";
 import { CategoryFilter } from "@/components/articles/CategoryFilter";
 import { Pagination } from "@/components/ui/Pagination";
@@ -30,14 +29,12 @@ export default async function ArtikelPage({
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
   return (
-    <Container className="py-16">
-      <SectionHeading
-        eyebrow="Kabar Paroki"
-        title="Artikel & Pengumuman"
-        description="Kumpulan berita, pengumuman, dan kegiatan seputar kehidupan menggereja di paroki kita."
-      />
-
-      <div className="mt-8">
+    <PageSection
+      eyebrow="Kabar Paroki"
+      title="Artikel & Pengumuman"
+      description="Kumpulan berita, pengumuman, dan kegiatan seputar kehidupan menggereja di paroki kita."
+    >
+      <div className="reveal" data-reveal-i={1}>
         <CategoryFilter categories={categories} activeSlug={params.category} />
       </div>
 
@@ -46,9 +43,11 @@ export default async function ArtikelPage({
           Belum ada artikel untuk kategori ini.
         </p>
       ) : (
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {articles.map((article) => (
-            <ArticleCard key={article.id} article={article} />
+        <div className="mt-10 grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          {articles.map((article, i) => (
+            <RevealItem key={article.id} i={i + 2}>
+              <ArticleCard article={article} />
+            </RevealItem>
           ))}
         </div>
       )}
@@ -59,6 +58,6 @@ export default async function ArtikelPage({
         basePath="/artikel"
         searchParams={{ category: params.category }}
       />
-    </Container>
+    </PageSection>
   );
 }

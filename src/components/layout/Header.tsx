@@ -24,7 +24,6 @@ const NAV: NavEntry[] = [
       { href: "/wilayah", label: "Wilayah & Lingkungan" },
     ],
   },
-  { href: "/jadwal-misa", label: "Jadwal Misa" },
   {
     label: "Kegiatan",
     items: [
@@ -181,18 +180,9 @@ export function Header() {
         </nav>
 
         <div className="hidden lg:block">
-          {overlay ? (
-            <Link
-              href="/jadwal-misa"
-              className="inline-flex items-center border border-gold-400/50 px-5 py-2.5 text-[11px] uppercase tracking-[.2em] text-white transition-colors duration-300 hover:bg-gold-400 hover:text-parish-900"
-            >
-              Lihat Jadwal Misa
-            </Link>
-          ) : (
-            <Button href="/jadwal-misa" size="sm">
-              Lihat Jadwal Misa
-            </Button>
-          )}
+          <Button href="/jadwal-misa" size="sm">
+            Lihat Jadwal Misa
+          </Button>
         </div>
 
         <button
@@ -242,6 +232,16 @@ export function Header() {
               </Link>
             )
           )}
+
+          {/* The desktop CTA is the only route to the schedule now, so the
+              mobile menu needs its own. */}
+          <Link
+            href="/jadwal-misa"
+            onClick={() => setOpen(false)}
+            className="mt-2 inline-flex items-center justify-center bg-parish-600 px-6 py-3 text-[11px] uppercase tracking-[.2em] text-white transition-colors duration-300 hover:bg-parish-700"
+          >
+            Lihat Jadwal Misa
+          </Link>
         </Container>
       </div>
     </header>

@@ -1,7 +1,5 @@
-import { Clock, MapPin, Radio } from "lucide-react";
-import { Container } from "@/components/ui/Container";
-import { Card } from "@/components/ui/Card";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Radio } from "lucide-react";
+import { PageSection, RevealItem } from "@/components/ui/PageSection";
 import { LiturgicalWeekList } from "@/components/liturgical/LiturgicalWeekList";
 import { getAllMassSchedules } from "@/lib/queries";
 import { getEffectiveRange } from "@/lib/liturgical-effective";
@@ -36,62 +34,62 @@ export default async function JadwalMisaPage() {
   const grouped = groupByChapel(schedules);
 
   return (
-    <Container className="py-16">
-      <SectionHeading
-        eyebrow="Peribadatan"
-        title="Jadwal Misa"
-        description="Jadwal perayaan Ekaristi mingguan di Paroki Yohanes Gabriel Perboyre. Silakan datang tepat waktu dan berpakaian sopan."
-      />
-
-      <div className="mt-10 grid gap-10 lg:grid-cols-3">
-        <div className="space-y-4 lg:col-span-2">
-          {grouped.map(([chapel, items]) => (
-            <Card key={chapel} className="p-5">
-              <h3 className="flex items-center gap-1.5 font-display text-lg text-parish-900">
-                <MapPin size={18} className="text-parish-500" />
+    <PageSection
+      eyebrow="Peribadatan"
+      title="Jadwal Misa"
+      description="Jadwal perayaan Ekaristi mingguan di Paroki Yohanes Gabriel Perboyre. Silakan datang tepat waktu dan berpakaian sopan."
+    >
+      <div className="grid items-start gap-x-16 gap-y-12 lg:grid-cols-3">
+        <div className="space-y-12 lg:col-span-2">
+          {grouped.map(([chapel, items], gi) => (
+            <RevealItem key={chapel} i={gi + 1}>
+              <p className="pb-2 text-[10px] uppercase tracking-[.3em] text-gold-600">
                 {chapel}
-              </h3>
-              <div className="mt-3 divide-y divide-parish-100">
-                {items.map((s) => (
+              </p>
+              <div>
+                {items.map((s, i) => (
                   <div
                     key={s.id}
-                    className="flex flex-wrap items-center justify-between gap-2 py-3 first:pt-0 last:pb-0"
+                    className="grid grid-cols-[32px_1fr] items-baseline gap-x-4 gap-y-1 border-b border-parish-100 py-5 transition-[background-color,padding-left] duration-300 hover:bg-parish-50 hover:pl-4 sm:grid-cols-[32px_minmax(0,1.4fr)_minmax(0,1fr)_32px] sm:items-center"
                   >
-                    <div className="flex items-center gap-3">
-                      <span className="flex items-center gap-1.5 font-display text-xl text-parish-900">
-                        <Clock size={16} className="text-parish-500" />
-                        {s.time}
-                      </span>
-                      <span className="text-sm text-parish-800">{s.day_label}</span>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <span className="text-sm text-parish-700/70">{s.category}</span>
+                    <span className="text-[11px] tracking-[.16em] text-parish-700/35">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+
+                    <span className="font-display text-[19px] leading-snug text-parish-900 sm:whitespace-nowrap sm:text-[22px]">
+                      {s.day_label} <span className="text-gold-600">{s.time}</span>
+                    </span>
+
+                    <span className="col-start-2 text-sm text-parish-700/70 sm:col-start-3">
+                      {s.category}
                       {s.stream_url && (
                         <a
                           href={s.stream_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 text-sm font-medium text-parish-600 hover:text-parish-700"
+                          className="ml-3 inline-flex items-center gap-1.5 text-parish-600 hover:underline"
                         >
-                          <Radio size={14} />
+                          <Radio size={13} />
                           Live
                         </a>
                       )}
-                    </div>
+                    </span>
+
+                    <span className="hidden text-right text-gold-600 sm:block">→</span>
                   </div>
                 ))}
               </div>
-            </Card>
+            </RevealItem>
           ))}
         </div>
 
-        <div>
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-gold-600">
+        <RevealItem i={grouped.length + 1}>
+          <p className="pb-4 text-[10px] uppercase tracking-[.3em] text-gold-600">
             Kalender Liturgi 7 Hari Ke Depan
-          </h3>
+          </p>
           <LiturgicalWeekList days={liturgicalDays} />
-        </div>
+        </RevealItem>
       </div>
-    </Container>
+    </PageSection>
   );
 }

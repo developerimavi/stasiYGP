@@ -1,6 +1,4 @@
-import { Container } from "@/components/ui/Container";
-import { Card } from "@/components/ui/Card";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { PageSection, RevealItem } from "@/components/ui/PageSection";
 import { OrganizationTree } from "@/components/organization/OrganizationTree";
 import { getOrganizationMembers } from "@/lib/queries";
 import type { Metadata } from "next";
@@ -18,30 +16,36 @@ export default async function OrganisasiPage() {
   ]);
 
   return (
-    <Container className="py-16">
-      <SectionHeading
-        eyebrow="Kepengurusan"
-        title="Struktur Organisasi"
-        description="Badan Gereja Katolik Paroki (BGKP) dan Dewan Pastoral Paroki (DPP) Yohanes Gabriel Perboyre."
-      />
-
-      <div className="mt-10 grid gap-8 lg:grid-cols-2">
-        <Card className="p-6">
-          <h2 className="font-display text-xl text-parish-900">BGKP</h2>
-          <p className="mt-1 text-sm text-parish-700/70">Badan Gereja Katolik Paroki</p>
-          <div className="mt-5">
+    <PageSection
+      eyebrow="Kepengurusan"
+      title="Struktur Organisasi"
+      description="Badan Gereja Katolik Paroki (BGKP) dan Dewan Pastoral Paroki (DPP) Yohanes Gabriel Perboyre."
+    >
+      <div className="grid items-start gap-x-16 gap-y-12 lg:grid-cols-2">
+        <RevealItem i={1}>
+          <p className="pb-3 text-[10px] uppercase tracking-[.3em] text-gold-600">
+            BGKP
+          </p>
+          <h2 className="border-b border-parish-200/60 pb-5 font-display text-2xl text-parish-900">
+            Badan Gereja Katolik Paroki
+          </h2>
+          <div className="mt-6">
             <OrganizationTree members={bgks} />
           </div>
-        </Card>
+        </RevealItem>
 
-        <Card className="p-6">
-          <h2 className="font-display text-xl text-parish-900">DPP</h2>
-          <p className="mt-1 text-sm text-parish-700/70">Dewan Pastoral Paroki</p>
-          <div className="mt-5">
+        <RevealItem i={2}>
+          <p className="pb-3 text-[10px] uppercase tracking-[.3em] text-gold-600">
+            DPP
+          </p>
+          <h2 className="border-b border-parish-200/60 pb-5 font-display text-2xl text-parish-900">
+            Dewan Pastoral Paroki
+          </h2>
+          <div className="mt-6">
             <OrganizationTree members={dps} />
           </div>
-        </Card>
+        </RevealItem>
       </div>
-    </Container>
+    </PageSection>
   );
 }

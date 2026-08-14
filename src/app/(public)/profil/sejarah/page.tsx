@@ -1,5 +1,4 @@
-import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { PageSection, RevealItem } from "@/components/ui/PageSection";
 import { RichTextContent } from "@/components/ui/RichTextContent";
 import { getParishHistory } from "@/lib/queries";
 import type { Metadata } from "next";
@@ -14,28 +13,31 @@ export default async function SejarahPage() {
   const history = await getParishHistory();
 
   return (
-    <Container className="py-16">
-      <SectionHeading
-        eyebrow="Perjalanan Kami"
-        title="Sejarah Paroki"
-        description="Perjalanan Paroki Yohanes Gabriel Perboyre dari masa ke masa."
-      />
-
-      <div className="mt-10 max-w-3xl space-y-8 border-l-2 border-parish-100 pl-8">
-        {history.map((h) => (
-          <div key={h.id} className="relative">
-            <span className="absolute -left-[2.35rem] top-1.5 h-3 w-3 rounded-full bg-parish-600" />
-            <p className="font-display text-2xl text-parish-900">{h.year}</p>
-            <p className="mt-0.5 text-sm font-semibold uppercase tracking-wide text-gold-600">
-              {h.category}
-            </p>
-            <RichTextContent
-              html={h.content}
-              className="mt-3 text-sm text-parish-800/90"
-            />
-          </div>
+    <PageSection
+      eyebrow="Perjalanan Kami"
+      title="Sejarah Paroki"
+      description="Perjalanan Paroki Yohanes Gabriel Perboyre dari masa ke masa."
+    >
+      <div>
+        {history.map((h, i) => (
+          <RevealItem key={h.id} i={i + 1}>
+            <div className="grid grid-cols-1 gap-x-12 gap-y-3 border-b border-parish-100 py-8 sm:grid-cols-[140px_minmax(0,1fr)]">
+              <div>
+                <p className="font-display text-[34px] leading-none text-gold-600">
+                  {h.year}
+                </p>
+                <p className="mt-2 text-[10px] uppercase tracking-[.2em] text-parish-700/50">
+                  {h.category}
+                </p>
+              </div>
+              <RichTextContent
+                html={h.content}
+                className="text-sm leading-[1.8] text-parish-800/90"
+              />
+            </div>
+          </RevealItem>
         ))}
       </div>
-    </Container>
+    </PageSection>
   );
 }

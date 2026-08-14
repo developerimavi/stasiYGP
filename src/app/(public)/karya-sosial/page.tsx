@@ -1,7 +1,5 @@
 import { Heart, Gift, Calendar, BookOpen } from "lucide-react";
-import { Container } from "@/components/ui/Container";
-import { Card } from "@/components/ui/Card";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { PageSection, RevealItem } from "@/components/ui/PageSection";
 import { RichTextContent } from "@/components/ui/RichTextContent";
 import { getSocialMinistries } from "@/lib/queries";
 import type { Metadata } from "next";
@@ -18,38 +16,38 @@ export default async function KaryaSosialPage() {
   const ministries = await getSocialMinistries();
 
   return (
-    <Container className="py-16">
-      <SectionHeading
-        eyebrow="Pelayanan Kasih"
-        title="Karya Sosial"
-        description="Wujud kepedulian dan pelayanan kasih Paroki Yohanes Gabriel Perboyre kepada sesama."
-      />
-
-      <div className="mt-10 grid gap-6 sm:grid-cols-2">
-        {ministries.map((m) => {
+    <PageSection
+      eyebrow="Pelayanan Kasih"
+      title="Karya Sosial"
+      description="Wujud kepedulian dan pelayanan kasih Paroki Yohanes Gabriel Perboyre kepada sesama."
+    >
+      <div className="grid items-start gap-x-14 gap-y-12 lg:grid-cols-2">
+        {ministries.map((m, i) => {
           const Icon = ICONS[m.icon ?? "Heart"] ?? Heart;
           return (
-            <Card key={m.id} className="p-6">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-parish-50 text-parish-600">
-                <Icon size={20} />
-              </span>
-              <h3 className="mt-4 font-display text-lg text-parish-900">{m.name}</h3>
+            <RevealItem key={m.id} i={i + 1}>
+              <div className="border-b border-parish-200/60 pb-5">
+                <span className="flex h-10 w-10 items-center justify-center bg-parish-50 text-parish-600">
+                  <Icon size={20} />
+                </span>
+                <h3 className="mt-4 font-display text-2xl text-parish-900">{m.name}</h3>
+              </div>
               {m.description && (
                 <RichTextContent
                   html={m.description}
-                  className="mt-2 text-sm text-parish-800/90"
+                  className="mt-5 text-sm leading-[1.8] text-parish-800/90"
                 />
               )}
               {m.activities && (
                 <RichTextContent
                   html={m.activities}
-                  className="mt-4 border-t border-parish-100 pt-4 text-sm text-parish-700/80"
+                  className="mt-4 text-sm leading-[1.8] text-parish-700/70"
                 />
               )}
-            </Card>
+            </RevealItem>
           );
         })}
       </div>
-    </Container>
+    </PageSection>
   );
 }
