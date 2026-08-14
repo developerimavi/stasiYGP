@@ -112,12 +112,16 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 transition-colors duration-300",
+        "top-0 z-50 transition-colors duration-300",
+        // On the home page the header floats over the hero photo, so it has to
+        // be fixed rather than sticky — sticky would occupy its own strip above
+        // the hero and the "transparent" state would show the cream page
+        // background, leaving the white text unreadable.
         overlay
           ? scrolled
-            ? "border-b border-white/10 bg-parish-900/85 backdrop-blur"
-            : "border-b border-transparent bg-transparent"
-          : "border-b border-parish-100/80 bg-cream-50/90 backdrop-blur"
+            ? "fixed inset-x-0 border-b border-white/10 bg-parish-900/85 backdrop-blur"
+            : "fixed inset-x-0 border-b border-transparent bg-gradient-to-b from-parish-900/70 to-transparent"
+          : "sticky border-b border-parish-100/80 bg-cream-50/90 backdrop-blur"
       )}
     >
       <Container className="flex h-20 items-center justify-between gap-4">

@@ -5,14 +5,14 @@ import type { MassSchedule } from "@/types/database";
 function ScheduleRow({ s, i }: { s: MassSchedule; i: number }) {
   return (
     <div
-      className="reveal grid grid-cols-[38px_1fr] items-baseline gap-x-5 gap-y-1 border-b border-parish-100 py-6 transition-[background-color,padding-left] duration-300 hover:bg-parish-50 hover:pl-4 sm:grid-cols-[38px_minmax(0,1.1fr)_minmax(0,1fr)_40px] sm:items-center"
+      className="reveal grid grid-cols-[32px_1fr] items-baseline gap-x-4 gap-y-1 border-b border-parish-100 py-5 transition-[background-color,padding-left] duration-300 hover:bg-parish-50 hover:pl-4 sm:grid-cols-[32px_minmax(0,1.4fr)_minmax(0,1fr)_32px] sm:items-center"
       data-reveal-i={i}
     >
       <span className="text-[11px] tracking-[.16em] text-parish-700/35">
         {String(i + 1).padStart(2, "0")}
       </span>
 
-      <span className="font-display text-[28px] leading-none text-parish-900 sm:text-[34px]">
+      <span className="font-display text-[19px] leading-snug text-parish-900 sm:whitespace-nowrap sm:text-[22px]">
         {s.day_label} <span className="text-gold-600">{s.time}</span>
       </span>
 
