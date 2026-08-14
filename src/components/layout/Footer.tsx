@@ -99,7 +99,7 @@ export async function Footer() {
             <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gold-400">
               Lokasi
             </h3>
-            <div className="overflow-hidden rounded-xl border border-white/10">
+            <div className="overflow-hidden border border-white/10">
               <iframe
                 src={profile?.map_embed_url || DEFAULT_MAP_EMBED_URL}
                 title="Peta Lokasi Paroki"

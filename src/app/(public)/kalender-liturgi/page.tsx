@@ -34,7 +34,7 @@ export default async function KalenderLiturgiPage() {
 
       {todayDay && (
         <div
-          className={`mt-10 rounded-2xl p-6 shadow-[0_2px_20px_-6px_rgba(28,60,45,0.2)] sm:p-8 ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solid}`}
+          className={`mt-10 p-6 sm:p-8 ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solid}`}
         >
           <p
             className={`text-xs font-semibold uppercase tracking-wide ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solidText} opacity-80`}

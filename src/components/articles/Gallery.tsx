@@ -11,7 +11,7 @@ export function Gallery({ images }: { images: ArticleImage[] }) {
         {images.map((img) => (
           <figure
             key={img.id}
-            className="relative aspect-square overflow-hidden rounded-xl bg-parish-100"
+            className="relative aspect-square overflow-hidden bg-parish-100"
           >
             <Image
               src={img.image_url}

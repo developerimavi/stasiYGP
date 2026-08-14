@@ -38,7 +38,7 @@ export function ImagePreviewThumbnail({
         onClick={() => setOpen(true)}
         aria-label={`Lihat foto ${alt}`}
         className={cn(
-          "relative shrink-0 overflow-hidden rounded-xl border border-parish-100 transition-opacity hover:opacity-90",
+          "relative shrink-0 overflow-hidden border border-parish-100 transition-opacity hover:opacity-90",
           className
         )}
       >

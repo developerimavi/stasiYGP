@@ -4,20 +4,19 @@ import { cn } from "@/lib/utils";
 type Variant = "primary" | "secondary" | "outline" | "ghost";
 type Size = "sm" | "md" | "lg";
 
+// Squared, letter-spaced buttons to match the home page redesign.
 const variantClasses: Record<Variant, string> = {
-  primary:
-    "bg-parish-600 text-white hover:bg-parish-700 shadow-sm shadow-parish-600/20",
-  secondary:
-    "bg-gold-500 text-white hover:bg-gold-600 shadow-sm shadow-gold-500/20",
+  primary: "bg-parish-600 text-white hover:bg-parish-700",
+  secondary: "bg-gold-600 text-white hover:bg-gold-500",
   outline:
-    "border border-parish-200 text-parish-700 hover:bg-parish-50 bg-white",
+    "border border-parish-600/40 text-parish-800 hover:bg-parish-600 hover:text-white",
   ghost: "text-parish-700 hover:bg-parish-50",
 };
 
 const sizeClasses: Record<Size, string> = {
-  sm: "px-3 py-1.5 text-sm rounded-full",
-  md: "px-5 py-2.5 text-sm rounded-full",
-  lg: "px-7 py-3.5 text-base rounded-full",
+  sm: "px-4 py-2 text-[10px] uppercase tracking-[.2em]",
+  md: "px-6 py-3 text-[11px] uppercase tracking-[.2em]",
+  lg: "px-8 py-4 text-xs uppercase tracking-[.2em]",
 };
 
 interface ButtonProps {
@@ -40,7 +39,7 @@ export function Button({
   type = "button",
 }: ButtonProps) {
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 font-medium transition-colors duration-200",
+    "inline-flex items-center justify-center gap-2 font-medium transition-colors duration-300",
     variantClasses[variant],
     sizeClasses[size],
     className

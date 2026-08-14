@@ -14,15 +14,20 @@ export function SectionHeading({
   return (
     <div className={cn("max-w-2xl", className)}>
       {eyebrow && (
-        <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-gold-600">
-          {eyebrow}
-        </p>
+        <div className="mb-5 flex items-center gap-4">
+          <span className="h-px w-[52px] bg-gold-600" />
+          <span className="text-[10px] uppercase tracking-[.34em] text-parish-700/60">
+            {eyebrow}
+          </span>
+        </div>
       )}
-      <h2 className="font-display text-3xl font-medium text-parish-900 sm:text-4xl">
+      <h2 className="max-w-[16ch] font-display text-[clamp(28px,4vw,52px)] leading-[1.05] tracking-[-.015em] text-parish-900">
         {title}
       </h2>
       {description && (
-        <p className="mt-3 text-base text-parish-700/80">{description}</p>
+        <p className="mt-4 max-w-[46ch] text-sm leading-[1.8] text-parish-700/70">
+          {description}
+        </p>
       )}
     </div>
   );

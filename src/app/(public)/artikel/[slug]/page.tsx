@@ -54,7 +54,7 @@ export default async function ArticleDetailPage({
       </div>
 
       <Container className="-mt-16 max-w-3xl">
-        <div className="rounded-2xl bg-white p-6 shadow-[0_2px_20px_-6px_rgba(28,60,45,0.15)] sm:p-10">
+        <div className="border border-parish-100 bg-white p-6 sm:p-10">
           <Link
             href="/artikel"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-parish-600 hover:text-parish-700"

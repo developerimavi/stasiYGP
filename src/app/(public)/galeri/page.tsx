@@ -42,7 +42,7 @@ export default async function GaleriPage() {
             </div>
             <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {(g.images ?? []).map((img) => (
-                <div key={img.id} className="relative aspect-square overflow-hidden rounded-xl">
+                <div key={img.id} className="relative aspect-square overflow-hidden">
                   <Image
                     src={img.image_url}
                     alt={img.caption ?? g.title}

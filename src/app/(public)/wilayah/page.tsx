@@ -34,7 +34,7 @@ export default async function WilayahPage() {
                   className="h-16 w-16"
                 />
               ) : (
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-parish-50 font-display text-lg text-parish-500">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center bg-parish-50 font-display text-lg text-parish-500">
                   {t.name
                     .replace(/^Wilayah\s*/i, "")
                     .split(" ")

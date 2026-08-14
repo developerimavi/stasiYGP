@@ -13,7 +13,7 @@ export function ParishMap({
   className?: string;
 }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-parish-100">
+    <div className="overflow-hidden border border-parish-100">
       <iframe
         src={src || DEFAULT_MAP_EMBED_URL}
         title={title ?? "Peta Lokasi"}
