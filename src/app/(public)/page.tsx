@@ -22,7 +22,7 @@ export default async function HomePage() {
     await Promise.all([
       getHeroSlides(),
       getAllMassSchedules(),
-      getLatestArticles(6),
+      getLatestArticles(3),
       getLatestAnnouncements(3),
       getEffectiveToday(),
       getWelcomeSlides(),

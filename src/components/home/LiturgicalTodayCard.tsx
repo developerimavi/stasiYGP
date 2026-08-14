@@ -18,7 +18,7 @@ export function LiturgicalTodayCard({ day }: { day: EffectiveLiturgicalDay | nul
 
   return (
     <section
-      className={`${soft.section} px-6 py-24 text-parish-900 transition-colors duration-500 sm:px-10 lg:px-14 lg:py-32`}
+      className={`${soft.section} px-6 py-16 text-parish-900 transition-colors duration-500 sm:px-10 lg:px-14 lg:py-24`}
     >
       <div className="mx-auto max-w-[1240px]">
         <div className="reveal flex items-center gap-4" data-reveal-i={0}>

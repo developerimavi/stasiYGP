@@ -94,8 +94,8 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
             />
           </div>
         ))}
-        <div className="absolute inset-0 bg-gradient-to-r from-parish-900 via-parish-900/80 to-parish-900/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-parish-900 via-transparent to-parish-900/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-parish-900/90 via-parish-900/55 to-parish-900/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-parish-900/80 via-transparent to-transparent" />
       </div>
 
       <div
