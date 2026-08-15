@@ -64,7 +64,7 @@ function DesktopDropdown({
         className={cn(
           "flex items-center gap-1 text-sm font-medium transition-colors",
           overlay
-            ? "text-white/75 hover:text-white"
+            ? "text-white hover:text-gold-400"
             : "text-parish-800/80 hover:text-parish-700"
         )}
       >
@@ -169,7 +169,7 @@ export function Header() {
                 className={cn(
                   "text-sm font-medium transition-colors",
                   overlay
-                    ? "text-white/75 hover:text-white"
+                    ? "text-white hover:text-gold-400"
                     : "text-parish-800/80 hover:text-parish-700"
                 )}
               >

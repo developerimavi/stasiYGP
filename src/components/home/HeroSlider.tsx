@@ -123,7 +123,7 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
 
         <h1
           key={slide.id}
-          className="m-0 max-w-4xl font-display text-[clamp(40px,5.6vw,92px)]  leading-[.98] tracking-[-.015em] text-white"
+          className="m-0 max-w-4xl font-display text-[clamp(40px,5.6vw,92px)] leading-[.98] tracking-[-.015em] text-gold-400"
         >
           {lines.map((line, i) => (
             <span key={i} className="block overflow-hidden pb-[.05em]">
