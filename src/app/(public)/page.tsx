@@ -28,7 +28,7 @@ export default async function HomePage() {
     ]);
 
   return (
-    <div className="bg-cream-50">
+    <div>
       <OpeningVeil />
       <WelcomeModal slides={welcomeSlides} />
 

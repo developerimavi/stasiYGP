@@ -27,7 +27,7 @@ export function PageSection({
     <section
       className={cn(
         "px-6 py-16 text-parish-900 sm:px-10 lg:px-14 lg:py-24",
-        tone === "muted" ? "bg-cream-100" : "bg-cream-50",
+        tone === "muted" ? "bg-cream-200/60" : "bg-white",
         className
       )}
     >

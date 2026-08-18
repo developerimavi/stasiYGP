@@ -40,7 +40,7 @@ export function MassScheduleSection({ schedules }: { schedules: MassSchedule[] }
   const chapels = Array.from(new Set(schedules.map((s) => s.chapel)));
 
   return (
-    <section className="bg-cream-50 px-6 py-16 text-parish-900 sm:px-10 lg:px-14 lg:py-24">
+    <section className="bg-white px-6 py-16 text-parish-900 sm:px-10 lg:px-14 lg:py-24">
       <div className="mx-auto max-w-[1240px]">
         <div
           className="reveal flex flex-col justify-between gap-6 border-b border-parish-200/60 pb-10 sm:flex-row sm:items-end sm:gap-14"
