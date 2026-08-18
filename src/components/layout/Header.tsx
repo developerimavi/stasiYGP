@@ -119,7 +119,7 @@ export function Header() {
         overlay
           ? scrolled
             ? "fixed inset-x-0 border-b border-white/10 bg-parish-900/85 backdrop-blur"
-            : "fixed inset-x-0 border-b border-transparent bg-gradient-to-b from-parish-900/70 to-transparent"
+            : "fixed inset-x-0 border-b border-transparent bg-gradient-to-b from-black/60 to-transparent"
           : "sticky border-b border-parish-100/80 bg-cream-50/90 backdrop-blur"
       )}
     >

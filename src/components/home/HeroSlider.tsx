@@ -74,7 +74,7 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
   const lines = words.length > 3 ? [words.slice(0, mid).join(" "), words.slice(mid).join(" ")] : [slide.title];
 
   return (
-    <section className="relative min-h-[86vh] w-full overflow-hidden bg-parish-900">
+    <section className="relative min-h-[86vh] w-full overflow-hidden bg-neutral-900">
       <div ref={photoRef} className="absolute inset-0 will-change-transform">
         {slides.map((s, i) => (
           <div
@@ -94,8 +94,10 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
             />
           </div>
         ))}
-        <div className="absolute inset-0 bg-gradient-to-r from-parish-900/90 via-parish-900/55 to-parish-900/10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-parish-900/80 via-transparent to-transparent" />
+        {/* Neutral scrim rather than a green tint — the photo keeps its own
+            colour, but the headline and nav stay legible over it. */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
       </div>
 
       <div

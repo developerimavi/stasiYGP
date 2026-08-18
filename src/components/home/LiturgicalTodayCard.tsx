@@ -1,12 +1,18 @@
 import Link from "next/link";
 import { formatDate } from "@/lib/format";
-import { LITURGICAL_COLOR_SOFT, LITURGICAL_COLOR_STYLES } from "@/lib/liturgical-color";
+import { LITURGICAL_COLOR_STYLES } from "@/lib/liturgical-color";
 import type { EffectiveLiturgicalDay } from "@/lib/liturgical-effective";
 
-export function LiturgicalTodayCard({ day }: { day: EffectiveLiturgicalDay | null }) {
+export function LiturgicalTodayCard({
+  day,
+  showLink = true,
+}: {
+  day: EffectiveLiturgicalDay | null;
+  /** Hidden on the calendar page itself, where the link would lead nowhere. */
+  showLink?: boolean;
+}) {
   if (!day) return null;
   const color = LITURGICAL_COLOR_STYLES[day.liturgical_color];
-  const soft = LITURGICAL_COLOR_SOFT[day.liturgical_color];
   const r = day.readings;
   const readings = [
     ["Bacaan I", r.first_reading],
@@ -16,19 +22,27 @@ export function LiturgicalTodayCard({ day }: { day: EffectiveLiturgicalDay | nul
     ["BcO", r.office_reading],
   ].filter(([, v]) => v) as [string, string][];
 
+  // The section carries the day's liturgical colour at full strength, the same
+  // as the calendar page. `solidText` already resolves to white on the dark
+  // colours (red/green/purple) and to ink on the light ones (white/pink).
+  const onDark = color.solidText.includes("white");
+  const rule = onDark ? "bg-white/40" : "bg-black/20";
+  const muted = onDark ? "opacity-75" : "opacity-70";
+  const divider = onDark ? "border-white/20" : "border-black/10";
+
   return (
     <section
-      className={`${soft.section} px-6 py-16 text-parish-900 transition-colors duration-500 sm:px-10 lg:px-14 lg:py-24`}
+      className={`${color.solid} ${color.solidText} px-6 py-16 transition-colors duration-500 sm:px-10 lg:px-14 lg:py-24`}
     >
       <div className="mx-auto max-w-[1240px]">
         <div className="reveal flex items-center gap-4" data-reveal-i={0}>
-          <span className={`h-px w-[52px] ${soft.rule}`} />
-          <span className={`text-[10px] uppercase tracking-[.34em] ${soft.accent}`}>
+          <span className={`h-px w-[52px] ${rule}`} />
+          <span className={`text-[10px] uppercase tracking-[.34em] ${muted}`}>
             Kalender Liturgi Hari Ini
           </span>
         </div>
 
-        <p className="reveal mt-8 text-sm text-parish-700/60" data-reveal-i={1}>
+        <p className={`reveal mt-8 text-sm ${muted}`} data-reveal-i={1}>
           {formatDate(day.calendar_date)}
         </p>
 
@@ -39,37 +53,39 @@ export function LiturgicalTodayCard({ day }: { day: EffectiveLiturgicalDay | nul
           {day.celebration_name}
         </h2>
 
-        <p
-          className="reveal mt-5 flex items-center gap-2.5 text-sm text-parish-700/70"
-          data-reveal-i={3}
-        >
-          <span className={`inline-block h-2.5 w-2.5 rounded-full ${color.dot}`} />
+        <p className={`reveal mt-5 text-sm ${muted}`} data-reveal-i={3}>
           Warna Liturgi: {color.label}
           {day.rank && ` · ${day.rank}`}
         </p>
 
         {readings.length > 0 && (
           <dl
-            className="reveal mt-10 grid gap-x-14 gap-y-3 border-t border-parish-200/60 pt-8 sm:grid-cols-2"
+            className={`reveal mt-10 grid gap-x-14 gap-y-3 border-t ${divider} pt-8 sm:grid-cols-2`}
             data-reveal-i={4}
           >
             {readings.map(([label, value]) => (
               <div key={label} className="flex gap-3 text-sm">
-                <dt className="min-w-[72px] text-parish-700/50">{label}</dt>
-                <dd className="m-0 text-parish-800">{value}</dd>
+                <dt className={`min-w-[72px] ${muted}`}>{label}</dt>
+                <dd className="m-0">{value}</dd>
               </div>
             ))}
           </dl>
         )}
 
-        <div className="reveal mt-10" data-reveal-i={5}>
-          <Link
-            href="/kalender-liturgi"
-            className="inline-flex items-center border border-parish-600/40 px-6 py-3 text-[11px] uppercase tracking-[.2em] text-parish-800 transition-colors duration-300 hover:bg-parish-600 hover:text-white"
-          >
-            Kalender Lengkap
-          </Link>
-        </div>
+        {showLink && (
+          <div className="reveal mt-10" data-reveal-i={5}>
+            <Link
+              href="/kalender-liturgi"
+              className={`inline-flex items-center border px-6 py-3 text-[11px] uppercase tracking-[.2em] transition-colors duration-300 ${
+                onDark
+                  ? "border-white/40 hover:bg-white hover:text-parish-900"
+                  : "border-black/25 hover:bg-parish-900 hover:text-white"
+              }`}
+            >
+              Kalender Lengkap
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
