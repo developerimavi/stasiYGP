@@ -44,15 +44,7 @@ const NAV: NavEntry[] = [
   },
 ];
 
-function DesktopDropdown({
-  label,
-  items,
-  overlay,
-}: {
-  label: string;
-  items: NavItem[];
-  overlay?: boolean;
-}) {
+function DesktopDropdown({ label, items }: { label: string; items: NavItem[] }) {
   const [open, setOpen] = useState(false);
   return (
     <div
@@ -60,14 +52,7 @@ function DesktopDropdown({
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button
-        className={cn(
-          "flex items-center gap-1 text-sm font-medium transition-colors",
-          overlay
-            ? "text-white hover:text-gold-400"
-            : "text-parish-800/80 hover:text-parish-700"
-        )}
-      >
+      <button className="flex items-center gap-1 text-sm font-medium text-white transition-colors hover:text-gold-400">
         {label}
         <ChevronDown size={14} />
       </button>
@@ -114,22 +99,19 @@ export function Header() {
         "top-0 z-50 transition-colors duration-300",
         // On the home page the header floats over the hero photo, so it has to
         // be fixed rather than sticky — sticky would occupy its own strip above
-        // the hero and the "transparent" state would show the cream page
-        // background, leaving the white text unreadable.
+        // the hero and the "transparent" state would show the page background
+        // behind the white text. Elsewhere it's solid green from the start.
         overlay
           ? scrolled
-            ? "fixed inset-x-0 border-b border-white/10 bg-parish-900/85 backdrop-blur"
+            ? "fixed inset-x-0 border-b border-white/10 bg-parish-900"
             : "fixed inset-x-0 border-b border-transparent bg-gradient-to-b from-black/60 to-transparent"
-          : "sticky border-b border-parish-100/80 bg-cream-50/90 backdrop-blur"
+          : "sticky border-b border-white/10 bg-parish-900"
       )}
     >
       <Container className="flex h-20 items-center justify-between gap-4">
         <Link
           href="/"
-          className={cn(
-            "flex shrink-0 items-center gap-2.5 transition-colors",
-            overlay ? "text-white" : "text-parish-900"
-          )}
+          className="flex shrink-0 items-center gap-2.5 text-white transition-colors"
         >
           <Image
             src="/logo.png"
@@ -139,12 +121,7 @@ export function Header() {
             className="h-14 w-14 object-contain"
           />
           <span className="flex flex-col leading-tight">
-            <span
-              className={cn(
-                "text-[11px] font-semibold uppercase tracking-wide",
-                overlay ? "text-gold-400" : "text-gold-600"
-              )}
-            >
+            <span className="text-[11px] font-semibold uppercase tracking-wide text-gold-400">
               Gereja Katolik
             </span>
             <span className="whitespace-nowrap font-display text-base sm:text-lg">
@@ -160,18 +137,12 @@ export function Header() {
                 key={entry.label}
                 label={entry.label}
                 items={entry.items}
-                overlay={overlay}
               />
             ) : (
               <Link
                 key={entry.href}
                 href={entry.href}
-                className={cn(
-                  "text-sm font-medium transition-colors",
-                  overlay
-                    ? "text-white hover:text-gold-400"
-                    : "text-parish-800/80 hover:text-parish-700"
-                )}
+                className="text-sm font-medium text-white transition-colors hover:text-gold-400"
               >
                 {entry.label}
               </Link>
@@ -186,10 +157,7 @@ export function Header() {
         </div>
 
         <button
-          className={cn(
-            "flex h-9 w-9 items-center justify-center rounded-full md:hidden",
-            overlay ? "text-white" : "text-parish-800"
-          )}
+          className="flex h-9 w-9 items-center justify-center rounded-full text-white md:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label="Buka menu"
         >
